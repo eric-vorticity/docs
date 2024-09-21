@@ -2,63 +2,63 @@
   "$schema": "https://mintlify.com/schema.json",
   "name": "Starter Kit",
   "logo": {
-    "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
+    "dark": "/logo/dark.png",
+    "light": "/logo/Plutus_VaR.png"
   },
   "favicon": "/favicon.svg",
   "colors": {
-    "primary": "#0D9373",
-    "light": "#07C983",
-    "dark": "#0D9373",
+    "primary": "#D32F2F",
+    "light": "#FF6659",
+    "dark": "#D32F2F",
     "anchors": {
-      "from": "#0D9373",
-      "to": "#07C983"
+      "from": "#D32F2F",
+      "to": "#FF6659"
     }
+  },
+  "primaryTab": {
+    "name": "Overview"
   },
   "topbarLinks": [
     {
       "name": "Support",
-      "url": "mailto:hi@mintlify.com"
+      "url": "mailto:hello@vorticity.xyz"
     }
   ],
   "topbarCtaButton": {
-    "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
+    "name": "Vorticity",
+    "url": "https://vorticity.xyz/"
   },
   "tabs": [
     {
+      "name": "Overview",
+      "url": "documentation"
+    },
+    {
       "name": "API Reference",
       "url": "api-reference"
-    }
-  ],
-  "anchors": [
-    {
-      "name": "Documentation",
-      "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
     },
     {
-      "name": "Community",
-      "icon": "slack",
-      "url": "https://mintlify.com/community"
-    },
-    {
-      "name": "Blog",
-      "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
+      "name": "Coming Soon...",
+      "url": "coming-soon"
     }
   ],
   "navigation": [
     {
-      "group": "Get Started",
+      "group": "Getting Started",
       "pages": [
-        "introduction",
-        "quickstart",
-        "development"
+        "essentials/introduction",
+        "essentials/our-mission"
       ]
     },
     {
       "group": "Essentials",
+      "pages": [
+        "essentials/hardware-requirements",
+        "essentials/basel-backtesting"
+      ]
+    },
+    {
+      "group": "Running Simulations",
       "pages": [
         "essentials/markdown",
         "essentials/code",
@@ -75,17 +75,26 @@
       ]
     },
     {
+      "group": "Coming Soon",
+      "pages": [
+        "coming-soon/requests",
+        "coming-soon/ui"
+      ]
+    },
+    {
       "group": "Endpoint Examples",
       "pages": [
+        "api-reference/endpoint/submit",
         "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
+        "api-reference/endpoint/stop"
       ]
     }
   ],
   "footerSocials": {
-    "x": "https://x.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://www.linkedin.com/company/mintsearch"
+    "website": "https://plutus.vorticity.xyz/",
+    "github": "https://github.com/VORTICITY-INC",
+    "linkedin": "https://www.linkedin.com/company/vorticityinc",
+    "youtube": "https://youtube.com/@vorticity6167?si=Vh1oBIQ1TbVJ-jkA",
+    "medium": "https://medium.com/vorticity-xyz/meet-plutus-var-the-future-of-risk-analysis-9cbe4821254b"
   }
 }

@@ -10,63 +10,24 @@
   },
   "servers": [
     {
-      "url": "http://sandbox.mintlify.com"
+      "url": "https://vo3hxrpx6g.execute-api.us-east-2.amazonaws.com/dev"
     }
   ],
   "security": [
     {
-      "bearerAuth": []
+      "apiKeyAuth": []
     }
   ],
   "paths": {
-    "/plants": {
-      "get": {
-        "description": "Returns all plants from the system that the user has access to",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "The maximum number of results to return",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Plant response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Plant"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      },
+    "/submit_job": {
       "post": {
-        "description": "Creates a new plant in the store",
+        "description": "Submits a new Value at Risk job to the server",
         "requestBody": {
-          "description": "Plant to add to the store",
+          "description": "Job to submit to the server",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewPlant"
+                "$ref": "#/components/schemas/Submit"
               }
             }
           },
@@ -74,11 +35,11 @@
         },
         "responses": {
           "200": {
-            "description": "plant response",
+            "description": "server response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Plant"
+                  "$ref": "#/components/schemas/Job"
                 }
               }
             }
@@ -96,14 +57,60 @@
         }
       }
     },
-    "/plants/{id}": {
-      "delete": {
-        "description": "Deletes a single plant based on the ID supplied",
+    "/get_job/{job_id}": {
+      "get": {
+        "description": "Returns the results of a job or its status based on the ID supplied",
         "parameters": [
           {
-            "name": "id",
+            "name": "job_id",
             "in": "path",
-            "description": "ID of plant to delete",
+            "description": "ID of the job to retrieve",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with the job results in CSV format",
+            "content": {
+              "text/csv": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                },
+                "examples": {
+                  "example-1": {
+                    "summary": "A sample CSV response",
+                    "value": "Ticker, 90%_VaR, 95%_VaR, 99%_VaR, 90%_CVaR, 95%_CVaR, 99%_ CVaR, Market Value, Quantity\n"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stop_job/{job_id}": {
+      "post": {
+        "description": "Stops a single job based on the ID supplied",
+        "parameters": [
+          {
+            "name": "job_id",
+            "in": "path",
+            "description": "ID of job to stop",
             "required": true,
             "schema": {
               "type": "integer",
@@ -132,18 +139,216 @@
   },
   "components": {
     "schemas": {
-      "Plant": {
+      "Submit": {
         "required": [
           "name"
         ],
         "type": "object",
         "properties": {
-          "name": {
-            "description": "The name of the plant",
+          "settings": {
+            "description": "The settings of the simulation",
+            "type": "object",
+            "properties": {
+              "num_scenarios": {
+                "description": "The number of simulated scenarios to run",
+                "type": "integer",
+                "format": "int32"
+              },
+              "time_horizon_days": {
+                "description": "The number of days forward to simulate in each scenario",
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          },
+          "portfolio": {
+            "description": "Your portfolio of positions",
+            "type": "object",
+            "properties": {
+              "long_stock_positions": {
+                "description": "Long positions in stocks",
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "ticker": {
+                      "description": "The Bloomberg ticker symbol of the stock",
+                      "type": "string"
+                    },
+                    "quantity": {
+                      "description": "The number of shares held",
+                      "type": "number",
+                      "format": "float"
+                    }
+                  }
+                }
+              },
+              "short_stock_positions": {
+                "description": "Short positions in stocks",
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "ticker": {
+                      "description": "The Bloomberg ticker symbol of the stock",
+                      "type": "string"
+                    },
+                    "quantity": {
+                      "description": "The number of shares held",
+                      "type": "number",
+                      "format": "float"
+                    }
+                  }
+                }
+              },
+              "long_option_positions": {
+                "description": "Long positions in options",
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "ticker": {
+                      "description": "The Bloomberg ticker symbol of the underlying stock",
+                      "type": "string"
+                    },
+                    "style": {
+                      "description": "Tag to specify the payoff style",
+                      "type": "string",
+                      "enum": ["european", "euro", "eu", "e", "american", "amer", "am", "a"]
+                    },
+                    "put": {
+                      "description": "Tag to specify put or call",
+                      "type": "boolean"
+                    },
+                    "strike": {
+                      "description": "The strike price of the option (float or 'atm')",
+                      "oneOf": [
+                        {
+                          "type": "number",
+                          "format": "float"
+                        },
+                        {
+                          "type": "string",
+                          "enum": ["atm"]
+                        }
+                      ]
+                    },
+                    "time to maturity": {
+                      "description": "The time to maturity of the option",
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "quantity": {
+                      "description": "The number of contracts in this positon held",
+                      "type": "number",
+                      "format": "float"
+                    }
+                  }
+                }
+              },
+              "short_option_positions": {
+                "description": "Short positions in options",
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "ticker": {
+                      "description": "The Bloomberg ticker symbol of the stock",
+                      "type": "string"
+                    },
+                    "style": {
+                      "description": "Tag to specify the payoff style",
+                      "type": "string",
+                      "enum": ["european", "euro", "eu", "e", "american", "amer", "am", "a"]
+                    },
+                    "put": {
+                      "description": "Tag to specify put or call",
+                      "type": "boolean"
+                    },
+                    "strike": {
+                      "description": "The strike price of the option (float or 'atm')",
+                      "oneOf": [
+                        {
+                          "type": "number",
+                          "format": "float"
+                        },
+                        {
+                          "type": "string",
+                          "enum": ["atm"]
+                        }
+                      ]
+                    },
+                    "time to maturity": {
+                      "description": "The time to maturity of the option",
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "quantity": {
+                      "description": "The number of contracts in this positon held",
+                      "type": "number",
+                      "format": "float"
+                    }
+                  }
+                }
+              },
+              "treasuries": {
+                "description": "Positions in treausury bonds",
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "maturity": {
+                      "description": "The maturity term of the bond",
+                      "type": "string",
+                      "enum": ["1mo", "2mo", "3mo", "4mo", "6mo", "1y", "2y", "3y", "5y", "7y", "10y", "20y", "30y"]
+                    },
+                    "total face value": {
+                      "description": "The total face value of the bond",
+                      "type": "number",
+                      "format": "float"
+                    }
+                  }
+                }
+              },
+              "cash": {
+                "description": "Total cash position",
+                "type": "number",
+                "format": "float"
+              }
+            }
+          }
+        }
+      },
+      "Job": {
+        "required": [
+          "job_id",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "job_id": {
+            "description": "The ID of the successfully submitted job",
             "type": "string"
           },
-          "tag": {
-            "description": "Tag to specify the type",
+          "status": {
+            "description": "The status of the job submission request",
+            "type": "string"
+          }
+        }
+      },
+      "Result": {
+        "required": [
+          "job_id",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "job_id": {
+            "description": "The ID of the successfully submitted job",
+            "type": "string"
+          },
+          "status": {
+            "description": "The status of the job submission request",
             "type": "string"
           }
         }
@@ -151,7 +356,7 @@
       "NewPlant": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/Plant"
+            "$ref": "#/components/schemas/Job"
           },
           {
             "required": [
@@ -189,6 +394,12 @@
       "bearerAuth": {
         "type": "http",
         "scheme": "bearer"
+      },
+      "apiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-api-key",
+        "description": "Server authentication header of the form `x-api-key: <api-key>`, where `<api-key>` is your auth token"
       }
     }
   }
