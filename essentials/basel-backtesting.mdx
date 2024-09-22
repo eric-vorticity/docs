@@ -4,3 +4,36 @@ description: 'Validated through techniques compliant with the Basel III Accords'
 icon: 'check'
 ---
 
+Robustly backtested using 20 years of historical data, across multiple asset types, long/short strategies, stressed and normal market conditions. Built with compliance of Basel III framework as a main priority.
+
+## Backtesting Settings
+
+| Parameter | Value |
+|--------------------------|---------|
+| Number of Portfolios    |  1,000  |
+| Scenarios per Portfolio | 100,000 |
+| Backtests per Scenario  |   252   |
+| Time Horizon            | 10 days |
+| Confidence Level        |    99%  |
+| Interest Rate Model     | Vasicek, CIR |
+| Volatility Lookback     | 25 days |
+
+## Backtesting Results
+
+<Frame>
+    ![title](/images/backtesting.png)
+</Frame>
+
+## Breakdown By Asset
+
+### Stocks 
+
+| Exceedances | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
+|-|---|---|---|---|---|---|---|---|---|---|----|
+|  | 4.47% | 14.63% | 21.54% | 30.89% | 17.89% | 6.10% | 3.25% | 0.82% | 0.41% | 0% | 0% |
+
+### Derivatives 
+
+| Exceedances | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
+|-|---|---|---|---|---|---|---|---|---|---|----|
+|  | 12.14% | 26.67% | 21.715% | 23.93% | 11.97% | 2.74% | 0.51% | 0.34% | 0% | 0% | 0% |
