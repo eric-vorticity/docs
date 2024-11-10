@@ -1,0 +1,41 @@
+---
+title: 'Stocks'
+description: 'Attributes and configurations for stock positions'
+icon: 'stock-chart'
+---
+
+## Stocks
+
+Stocks represent shares of individual companies in your portfolio. Below are the attributes you can configure for stock positions in Plutus:VaR.
+
+### Stock Attributes
+
+- **`ticker`** (string)  
+  The Bloomberg ticker symbol of the stock.  
+  _Example:_ `"SPY"` for S&P 500 ETF.
+
+- **`type`** (string)  
+  Specifies the position type, either `"long"` or `"short"`.  
+  _Example:_ `"long"`.
+
+- **`quantity`** (number)  
+  The number of shares held.  
+  _Example:_ `1000`.
+
+### Example Usage
+
+```json
+{
+  "stocks": [
+    {
+      "ticker": "SPY",
+      "type": "long",
+      "quantity": 1000
+    },
+    {
+      "ticker": "QQQ",
+      "type": "long",
+      "quantity": 500
+    }
+  ]
+}

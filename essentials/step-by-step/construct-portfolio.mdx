@@ -1,0 +1,70 @@
+---
+title: Construct Portfolio
+description: ''
+icon: 'folder'
+---
+
+To create a portfolio, you will need to submit both the portfolio itself and the settings of the simulations to be run.  
+Plutus:VaR supports various different asset classes, each with specific properties.
+
+Below are the supported asset types and the attributes you can set for each type.  
+Once constructed, the portfolio can be submitted to the Plutus:VaR engine for risk analysis.
+
+## Portfolio Structure
+
+Your portfolio is defined as a JSON object containing various asset classes such as **futures**, **options**, **stocks**, and **bonds**.  
+Each asset type has required properties, allowing you to customize each holding in your portfolio.
+
+<Note> For more advanced configuration options, including stress testing and customized volatility adjustments, refer to the [API Reference](/api-reference/introduction). </Note>
+
+### Portfolio Formats
+
+You can build your portfolio using either the **JSON** format or the **FPML** format. 
+Plutus:VaR supports both of these widely used formats, giving you flexibility in how you structure your portfolio data.
+
+
+<CodeGroup>
+```json JSON/YAML
+{"settings": {
+    "numScenarios": 100000,
+    "timeHorizonDays": 10,
+    "dataInputFormat": "YAML",
+    "confidenceLevels": [0.90, 0.95, 0.99],
+    "method": "Monte-Carlo",
+    "distributionAssumption": "Log-Normal",
+},
+"portfolio": {
+    "futures": [ /* Future positions here */ ],
+    "stocks": [ /* Stock positions here */ ],
+    "options": [ /* Option positions here */ ]
+    "bonds": [ /* Bond positions here */ ]
+}
+```
+
+```json FPML/XML
+{"settings": {
+    "numScenarios": 100000,
+    "timeHorizonDays": 10,
+    "dataInputFormat": "YAML",
+    "confidenceLevels": [0.90, 0.95, 0.99],
+    "method": "Monte-Carlo",
+    "distributionAssumption": "Log-Normal",
+},
+"portfolio": {
+    <portfolio>
+        <stocks>
+            /* Stock positions here */
+        </stocks>
+        <options>
+            /* Option positions here */
+        </options>
+        <futures>
+            /* Futures positions here */
+        </futures>
+        <bonds>
+            /* Bond positions here */
+        </bonds>
+    </portfolio>
+}
+```
+</CodeGroup>

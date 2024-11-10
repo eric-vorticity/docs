@@ -1,0 +1,75 @@
+---
+title: Submit Portfolio
+description: ''
+icon: 'cloud-arrow-up'
+---
+
+Once you’ve constructed your portfolio, you can submit it for analysis using the Plutus:VaR API. This section will guide you through the process of making the API request to submit your portfolio and retrieve the results.
+
+To submit your portfolio for risk analysis, you'll need to make a `POST` request to the Plutus:VaR submission endpoint, including your portfolio data and the relevant settings in the request body.
+
+## Required Information
+
+1. **API Key**: You must include your personal API key in the request headers to authenticate.
+2. **Portfolio JSON**: The portfolio you have constructed in the previous section.
+3. **Settings**: The settings that define the analysis parameters, such as number of scenarios, confidence levels, and volatility assumptions.
+
+## Example API Request
+
+Below is a full example of the API request you’ll need to make to submit your portfolio. This request assumes that you have already constructed your portfolio JSON as shown in the previous section.
+
+```bash
+curl -X POST \
+-H "x-api-key: {your-api-key-here}" \
+-H "Content-Type: application/json" \
+https://5uftseufe1.execute-api.us-east-2.amazonaws.com/prod/submit_job \
+-d '{
+    "settings": {
+        "numScenarios": 100000,
+        "timeHorizonDays": 10,
+        "dataInputFormat": "YAML",
+        "confidenceLevels": [0.90, 0.95, 0.99],
+        "method": "Monte-Carlo",
+        "distributionAssumption": "Log-Normal",
+        "volatilityLookbackDays": 25
+    },
+    "portfolio": {
+        "futures": [
+            {
+                "ticker": "ES=F",
+                "type": "long",
+                "maturity": "2024-12-01",
+                "quantity": 100
+            },
+            {
+                "ticker": "YM=F",
+                "type": "long",
+                "maturity": "2024-12-01",
+                "quantity": 500
+            }
+        ],
+        "stocks": [
+            {
+                "ticker": "SPY",
+                "type": "long",
+                "quantity": 1000
+            },
+            {
+                "ticker": "QQQ",
+                "type": "long",
+                "quantity": 500
+            }
+        ],
+        "options": [
+            {
+                "ticker": "SPY",
+                "type": "Long",
+                "style": "american",
+                "put": "Call",
+                "strike": 568,
+                "maturity": "2025-10-31",
+                "quantity": 2000
+            }
+        ]
+    }
+}'

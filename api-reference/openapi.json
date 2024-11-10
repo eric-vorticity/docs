@@ -21,7 +21,7 @@
   "paths": {
     "/submit_job": {
       "post": {
-        "description": "Submits a new Value at Risk job to the server",
+        "description": "Submits a Value at Risk job",
         "requestBody": {
           "description": "Job to submit to the server",
           "content": {
@@ -57,7 +57,7 @@
         }
       }
     },
-    "/get_job/{job_id}": {
+    "/get_job/{job_id}/{data_type}/{data_format}": {
       "get": {
         "description": "Returns the results of a job or its status based on the ID supplied",
         "parameters": [
@@ -69,6 +69,26 @@
             "schema": {
               "type": "integer",
               "format": "int64"
+            }
+          },
+          {
+            "name": "data_type",
+            "in": "path",
+            "description": "Whether to retrieve the portfolio-level, marginal-level, or distribution results data",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["marginal", "portfolio", "histogram"]
+            }
+          },
+          {
+            "name": "data_format",
+            "in": "path",
+            "description": "File format to retrieve the results in",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["fpml", "csv", "json", "xml", "yaml"]
             }
           }
         ],
@@ -163,6 +183,24 @@
                 "description": "The number of days forward to simulate in each scenario",
                 "type": "integer",
                 "format": "int32"
+              },
+              "data_input_format": {
+                "description": "The format of the input data",
+                "type": "string",
+                "enum": ["FPML", "JSON", "XML", "YAML"]
+              },
+              "confidence_levels": {
+                "description": "The confidence levels",
+                "type": "array",
+                "items": {
+                  "type": "number",
+                  "format": "float"
+                }
+              },
+              "method": {
+                "description": "The sampling method to use",
+                "type": "string",
+                "enum": ["Monte-Carlo", "Historical"]
               }
             }
           },
@@ -170,37 +208,59 @@
             "description": "Your portfolio of positions",
             "type": "object",
             "properties": {
-              "long_stock_positions": {
-                "$ref": "#/components/schemas/LongStockPositions"
+              "futures": {
+                "$ref": "#/components/schemas/FuturePositions"
               },
-              "short_stock_positions": {
-                "$ref": "#/components/schemas/ShortStockPositions"
+              "stocks": {
+                "$ref": "#/components/schemas/StockPositions"
               },
-              "long_option_positions": {
-                "$ref": "#/components/schemas/LongOptionPositions"
+              "options": {
+                "$ref": "#/components/schemas/OptionPositions"
               },
-              "short_option_positions": {
-                "$ref": "#/components/schemas/ShortOptionPositions"
-              },
-              "treasuries": {
-                "$ref": "#/components/schemas/Treasuries"
-              },
-              "cash": {
-                "$ref": "#/components/schemas/Cash"
+              "bonds": {
+                "$ref": "#/components/schemas/BondPositions"
               }
             }
           }
         }
       },
-      "LongStockPositions": {
-        "description": "Long positions in stocks",
+      "FuturePositions": {
+        "description": "Positions in futures",
         "type": "array",
         "items": {
           "type": "object",
           "properties": {
             "ticker": {
-              "description": "The Bloomberg ticker symbol of the stock",
+              "description": "The ticker symbol of the future",
               "type": "string"
+            },
+            "type":{ 
+              "description": "Whether the position is long or short",
+              "type": "string",
+              "enum": ["long", "short"]
+            },
+            "quantity": {
+              "description": "The number of contracts held",
+              "type": "number",
+              "format": "float"
+            }
+          }
+        }
+      },
+      "StockPositions": {
+        "description": "Positions in stocks",
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "ticker": {
+              "description": "The ticker symbol of the stock",
+              "type": "string"
+            },
+            "type":{ 
+              "description": "Whether the position is long or short",
+              "type": "string",
+              "enum": ["long", "short"]
             },
             "quantity": {
               "description": "The number of shares held",
@@ -210,33 +270,20 @@
           }
         }
       },
-      "ShortStockPositions": {
-        "description": "Short positions in stocks",
+      "OptionPositions": {
+        "description": "Positions in options",
         "type": "array",
         "items": {
           "type": "object",
           "properties": {
             "ticker": {
-              "description": "The Bloomberg ticker symbol of the stock",
+              "description": "The ticker symbol of the underlying stock",
               "type": "string"
             },
-            "quantity": {
-              "description": "The number of shares held",
-              "type": "number",
-              "format": "float"
-            }
-          }
-        }
-      },
-      "LongOptionPositions": {
-        "description": "Long positions in options",
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "ticker": {
-              "description": "The Bloomberg ticker symbol of the underlying stock",
-              "type": "string"
+            "type": {
+              "description": "Whether the position is long or short",
+              "type": "string",
+              "enum": ["long", "short"]
             },
             "style": {
               "description": "Tag to specify the payoff style",
@@ -245,81 +292,29 @@
             },
             "put": {
               "description": "Tag to specify put or call",
-              "type": "boolean"
-            },
-            "strike": {
-              "description": "The strike price of the option (float or 'atm')",
-              "oneOf": [
-                {
-                  "type": "number",
-                  "format": "float"
-                },
-                {
-                  "type": "string",
-                  "enum": ["atm"]
-                }
-              ]
-            },
-            "time_to_maturity": {
-              "description": "The time to maturity of the option",
-              "type": "number",
-              "format": "float"
-            },
-            "quantity": {
-              "description": "The number of contracts in this position held",
-              "type": "number",
-              "format": "float"
-            }
-          }
-        }
-      },
-      "ShortOptionPositions": {
-        "description": "Short positions in options",
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "ticker": {
-              "description": "The Bloomberg ticker symbol of the stock",
-              "type": "string"
-            },
-            "style": {
-              "description": "Tag to specify the payoff style",
               "type": "string",
-              "enum": ["european", "euro", "eu", "e", "american", "amer", "am", "a"]
-            },
-            "put": {
-              "description": "Tag to specify put or call",
-              "type": "boolean"
+              "enum": ["call", "put"]
             },
             "strike": {
-              "description": "The strike price of the option (float or 'atm')",
-              "oneOf": [
-                {
-                  "type": "number",
-                  "format": "float"
-                },
-                {
-                  "type": "string",
-                  "enum": ["atm"]
-                }
-              ]
-            },
-            "time_to_maturity": {
-              "description": "The time to maturity of the option",
+              "description": "The strike price",
               "type": "number",
               "format": "float"
             },
+            "maturity": {
+              "description": "The maturity date (yyyy-mm-dd)",
+              "type": "string",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+            },
             "quantity": {
-              "description": "The number of contracts in this position held",
+              "description": "The number of contracts held",
               "type": "number",
               "format": "float"
             }
           }
         }
       },
-      "Treasuries": {
-        "description": "Positions in treasury bonds",
+      "BondPositions": {
+        "description": "Positions in bonds",
         "type": "array",
         "items": {
           "type": "object",
@@ -336,11 +331,6 @@
             }
           }
         }
-      },
-      "Cash": {
-        "description": "Total cash position",
-        "type": "number",
-        "format": "float"
       },
       "Job": {
         "required": [

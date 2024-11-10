@@ -3,7 +3,7 @@
   "name": "Starter Kit",
   "logo": {
     "dark": "/logo/dark.png",
-    "light": "/logo/Plutus_VaR.png"
+    "light": "/logo/light.png"
   },
   "favicon": "/favicon.svg",
   "colors": {
@@ -58,15 +58,15 @@
       ]
     },
     {
-      "group": "Running Simulations",
-      "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets"
-      ]
+        "group": "Step by Step",
+        "pages": [
+          "essentials/step-by-step/overview",
+          "essentials/step-by-step/create-account",
+          "essentials/step-by-step/construct-portfolio",
+          "essentials/step-by-step/portfolio-submission",
+          "essentials/step-by-step/stress-testing",
+          "essentials/step-by-step/analyze-results"
+        ]
     },
     {
       "group": "API Documentation",

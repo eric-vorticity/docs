@@ -1,0 +1,23 @@
+---
+title: Stress Testing
+description: ''
+icon: 'triangle-exclamation'
+---
+
+In addition to standard risk analysis, Plutus:VaR also supports **stress testing** to help you assess the potential impact of extreme market conditions on your portfolio. Stress testing allows you to simulate scenarios under adverse conditions, testing the resilience of your portfolio against significant market shocks.
+
+## Stress Testing for Monte Carlo
+
+For Monte Carlo simulations, you have several adjustable parameters to customize your stress testing scenarios:
+
+- **Volatility Lookback Days**: This parameter defines the number of days used for calculating volatility in the Monte Carlo simulations. You can adjust this to test how your portfolio performs under different historical volatility periods. The longer the lookback period, the more historical data is used to model volatility.
+
+- **EWMA Decay Factor**: The Exponentially Weighted Moving Average (EWMA) decay factor allows you to adjust how much recent volatility should impact future projections. A higher decay factor gives more weight to recent market conditions, while a lower decay factor reduces the impact of recent volatility.
+
+- **Market Volatility Multiplier**: This multiplier can be applied to the calibrated market volatilities, amplifying the market movements and stress testing how your portfolio responds to extreme market conditions.
+
+## Stress Testing for Historical Simulation
+
+For historical simulations, you can **add or remove specific historical data points** to simulate different market events, such as financial crises or market rallies. This feature allows you to test your portfolio's performance under extreme, but realistic, market conditions.
+
+By adjusting these parameters, you can better understand how your portfolio might react to various stress scenarios and improve your risk management strategies.

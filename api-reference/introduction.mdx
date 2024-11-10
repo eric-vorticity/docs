@@ -4,25 +4,28 @@ description: 'A brief overview of the Plutus:VaR API endpoints'
 ---
 
 <Note>
-  Support for GPU workloads is in progress. Check back here for updates to the documentation!
+  The Plutus:VaR API provides powerful tools to compute Value at Risk (VaR), Expected Shortfall (ES), and support for stress testing. Dive in to learn more!
 </Note>
 
-## Welcome
+## Plutus:VaR Engine API Overview
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
+Welcome to the **Plutus:VaR Engine API**! This API allows you to easily compute your portfolio's **Value at Risk (VaR)** and **Expected Shortfall (ES)**, two critical risk metrics for financial portfolios.
+
+You can leverage Plutus' advanced features to calculate VaR and ES across various time horizons, data inputs, and methods like **Monte Carlo simulations** and **Historical simulation**. Whether you are managing a diverse portfolio or stress-testing your assets under various conditions, Plutus makes it easier than ever to get meaningful insights from your risk calculations.
 
 <Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
+  title="Learn More about Plutus:VaR Engine"
+  icon="calculator"
+  href="https://github.com/vorticity-inc/plutus-var-api"
 >
-  View the OpenAPI specification file
+  Visit our GitHub for more details on how to use the API
 </Card>
 
-## Authentication
+### Key Features
+- **Monte Carlo Simulations**: Run simulations with customizable parameters such as volatility lookback days and decay factor for the EWMA method.
+- **Historical Simulation**: Use historical data to simulate risk based on past market conditions.
+- **Stress Testing**: Add or remove specific historical data points to assess the impact of extreme events or changes in the market.
+- **Flexible Configuration**: Adjust settings such as confidence levels, start and end dates, and method selection to suit your analysis needs.
 
-All API endpoints are authenticated using API keys and picked up from the flag in the command.
-
-```
--H 'x-api-key: your-api-key'
-```
+Ready to get started? Follow the detailed guides in the API Documentation to begin integrating the Plutus
+Engine into your financial applications.
