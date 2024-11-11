@@ -47,18 +47,22 @@
       "group": "Getting Started",
       "pages": [
         "essentials/introduction",
-        "essentials/our-mission"
-      ]
-    },
-    {
-      "group": "Essentials",
-      "pages": [
-        "essentials/hardware-requirements",
+        "essentials/our-mission",
         "essentials/basel-backtesting"
       ]
     },
     {
-        "group": "Step by Step",
+        "group": "Asset Types",
+        "pages": [
+          "essentials/assets/stocks",
+          "essentials/assets/futures",
+          "essentials/assets/options",
+          "essentials/assets/bonds",
+          "essentials/assets/cash"
+        ]
+    },
+    {
+        "group": "Step by step",
         "pages": [
           "essentials/step-by-step/overview",
           "essentials/step-by-step/create-account",
@@ -69,24 +73,26 @@
         ]
     },
     {
-      "group": "API Documentation",
+      "group": "Monte-Carlo",
       "pages": [
-        "api-reference/introduction"
+        "api-reference/mc-endpoints/submit",
+        "api-reference/mc-endpoints/get",
+        "api-reference/mc-endpoints/stop"
       ]
+    },
+    {
+        "group": "Historical",
+        "pages": [
+          "api-reference/hs-endpoints/submit",
+          "api-reference/hs-endpoints/get",
+          "api-reference/hs-endpoints/stop"
+        ]
     },
     {
       "group": "Coming Soon",
       "pages": [
         "coming-soon/requests",
         "coming-soon/ui"
-      ]
-    },
-    {
-      "group": "Endpoint Examples",
-      "pages": [
-        "api-reference/endpoint/submit",
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/stop"
       ]
     }
   ],

@@ -1,0 +1,41 @@
+---
+title: Stocks
+description: ''
+icon: 'chart-line'
+---
+
+When using the Plutus:VaR API, you can include stock assets in your portfolio submission. Each stock position allows for the following customizable properties:
+
+## Properties
+
+- **Ticker**: The unique identifier of the stock (e.g., `"SPY"` for the S&P 500 ETF).
+- **Type**: Specifies whether the position is `"long"` or `"short"`.
+- **Quantity**: The number of shares held.
+
+## Modeling Different Types of Stocks
+
+The Plutus:VaR API can model a wide range of stocks, including those from different exchanges, sectors, and geographies. Here are some of the types of stocks you can model in your portfolio:
+
+### 1. **Domestic Stocks**
+These are stocks listed on exchanges within your home country. For example, stocks traded on the **New York Stock Exchange (NYSE)** or **NASDAQ** are considered domestic stocks if you're in the United States. These stocks can be categorized by market capitalization (e.g., large-cap, mid-cap, small-cap), sector (e.g., technology, healthcare), or investment style (e.g., growth, value).
+
+### 2. **International Stocks**
+International stocks are those traded on foreign exchanges, such as the **London Stock Exchange (LSE)**, **Euronext**, or **Tokyo Stock Exchange (TSE)**. These may also be part of international market indices like the **FTSE 100** or the **Nikkei 225**.
+
+### 3. **Exchange-Traded Funds (ETFs)**
+ETFs are funds that trade on stock exchanges, much like individual stocks, but they typically represent a collection of stocks, bonds, or other assets. Examples include the **SPDR S&P 500 ETF (SPY)** or the **Invesco QQQ ETF (QQQ)**.
+
+### 4. **Preferred Stocks**
+Preferred stocks are a type of equity that has preferential treatment over common stocks in terms of dividends and liquidation. They are typically considered a hybrid between stocks and bonds, offering features of both.
+
+### 5. **Dividend Stocks**
+Dividend stocks are shares of companies that regularly distribute a portion of their profits to shareholders. These stocks tend to be more stable and provide a source of passive income for investors. Examples include **Johnson & Johnson (JNJ)** or **Coca-Cola (KO)**.
+
+### 6. **Penny Stocks**
+Penny stocks are stocks of small companies that trade at low prices (typically under $5 per share). These stocks are known for their high volatility and speculative nature.
+
+### 7. **Growth vs. Value Stocks**
+Stocks can be categorized as **growth stocks** or **value stocks** based on the investing style. **Growth stocks** are expected to grow at an above-average rate compared to other companies, while **value stocks** are undervalued compared to their fundamentals.
+
+### 8. **Sector and Industry-Specific Stocks**
+You can model stocks from specific sectors or industries, such as technology, healthcare, finance, or consumer staples. Stocks in certain sectors, like **technology (GOOG)** or **healthcare (PFE)**, may exhibit different risk profiles due to market dynamics.

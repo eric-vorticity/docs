@@ -1,0 +1,34 @@
+---
+title: Futures
+description: ''
+icon: 'file-contract'
+---
+
+When using the Plutus:VaR API, you can include futures in your portfolio submission. Each futures position allows for the following customizable properties:
+
+## Properties
+
+- **Ticker**: The unique identifier for the futures contract (e.g., `"ES=F"` for the S&P 500 E-mini futures).
+- **Type**: Specifies whether the position is `"Long"` or `"Short"`.
+- **Maturity**: The contract expiration date in `YYYY-MM-DD` format.
+- **Quantity**: The number of futures contracts held.
+
+## Modeling Different Types of Futures Contracts
+
+Futures contracts can be based on a wide range of underlying assets, including commodities, financial instruments, and currencies. Here are some common types of futures contracts you can model using the Plutus:VaR API:
+
+### Commodity Futures
+- **Example**: Oil futures (e.g., `"CL=F"` for crude oil) give you the right to buy or sell a specific quantity of the commodity at a specified price on a future date.
+- **Customization**: Adjust the `Ticker` field to represent commodities like oil (`"CL=F"`), gold (`"GC=F"`), or agricultural products like corn (`"ZC=F"`).
+  
+### Interest Rate Futures
+- **Example**: Treasury bond futures (e.g., `"ZB=F"` for 30-year US Treasury Bonds) are used to hedge or speculate on interest rate movements.
+- **Customization**: Modify the `Ticker` to reflect interest rate futures, such as `"ZB=F"` for treasury bonds or `"ED=F"` for Eurodollar futures.
+
+### Currency Futures
+- **Example**: Currency futures allow you to trade currency pairs, such as the Euro/USD or GBP/USD.
+- **Customization**: Set the `Ticker` field to a currency pair like `"6E=F"` for Euro futures or `"6B=F"` for British Pound futures.
+
+### Stock Index Futures
+- **Example**: Stock index futures, like the `"ES=F"` for S&P 500 E-mini futures, allow investors to speculate on the movement of the overall stock market or hedge against potential market downturns.
+- **Customization**: Use tickers like `"NQ=F"` for Nasdaq futures or `"YM=F"` for Dow Jones futures.

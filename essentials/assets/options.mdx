@@ -1,0 +1,49 @@
+---
+title: Options
+description: ''
+icon: 'file-signature'
+---
+
+When using the Plutus:VaR API, you can include option assets in your portfolio submission. Each option asset allows for the following customizable properties:
+
+## Properties
+
+- **Ticker**: The unique identifier of the underlying asset for the option (e.g., `"SPY"` for the S&P 500 ETF).
+- **Type**: Specifies whether the option position is `"Long"` or `"Short"`.
+- **Style**: Indicates the exercise style, either `"American"` or `"European"`.
+- **Put/Call**: Specifies if the option is a `"Put"` or `"Call"`.
+- **Strike**: The strike price of the option contract.
+- **Maturity**: The expiration date of the option in `YYYY-MM-DD` format.
+- **Quantity**: The number of option contracts held.
+
+## Modeling Different Types of Options
+
+Using these customizable properties, you can model **any type of option** on an underlying stock or asset. This includes call and put options for stocks, ETFs, and other underlying assets. Below are some key types of options you can model:
+
+### Call Options
+- **Example**: Buying a call option on the SPY ETF gives you the right, but not the obligation, to buy SPY shares at a specified strike price before the option expires.
+- **Customizations**: Adjust the `Strike` and `Maturity` to reflect the specific terms of the call option you're modeling.
+
+### Put Options
+- **Example**: A put option on a stock like Google (GOOG) gives you the right to sell the stock at a specified strike price.
+- **Customizations**: Adjust the `Strike`, `Maturity`, and `Put/Call` fields to specify a put position.
+
+<Note> More advanced options strategies, such as spreads or straddles, can be modelled by including multiple options on the same or different tickers in your portfolio. Customize each option’s strike and expiration date to represent your specific strategy. </Note>
+
+## Modeling Different Styles of Options
+
+In the **Options** section, the `Style` field specifies whether the option is **American** or **European**. Here’s a quick overview:
+
+### American Payoffs
+  - These options can be exercised at **any time** before or on the expiration date.
+  - Commonly traded on various stock exchanges like the NYSE and the Chicago Board Options Exchange (CBOE).
+  - Most stock options are American-style options.
+  
+### European Payoffs
+  - These options can only be exercised on the **expiration date**, not before.
+  - Commonly used in index options (e.g., options on the Euro STOXX 50 index).
+  - They generally have simpler pricing models since they can't be exercised early.
+
+You can model both types of options based on the asset you're working with, adjusting the `Style` field to either `"American"` or `"European"` depending on your needs.
+
+<Note> We are currently working on adding support for Asian options, a type of exotic option where the payoff is based on the average price of the underlying asset over a specified period. This will allow you to model options that have payoffs dependent on the average value of the asset during the life of the option. </Note>

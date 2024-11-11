@@ -4,36 +4,56 @@ description: 'Validated through techniques compliant with the Basel III Accords'
 icon: 'check'
 ---
 
-Robustly backtested using 20 years of historical data, across multiple asset types, long/short strategies, stressed and normal market conditions. Built with compliance of Basel III framework as a main priority.
+# Basel III Backtesting Overview
 
-## Backtesting Settings
+Our backtesting process rigorously evaluates portfolios across multiple asset classes and strategies, ensuring compliance with the Basel III framework. Using 20 years of historical data, we simulate performance under both stressed and normal market conditions, validating the robustness of risk management models.
 
-| Parameter | Value |
-|--------------------------|---------|
-| Number of Portfolios    |  1,000  |
-| Scenarios per Portfolio | 100,000 |
-| Backtests per Scenario  |   252   |
-| Time Horizon            | 10 days |
-| Confidence Level        |    99%  |
-| Interest Rate Model     | Vasicek, CIR |
-| Volatility Lookback     | 25 days |
+The backtesting process follows the guidelines of the Basel III Accords, which focus on assessing market risk and validating the Value at Risk (VaR) measures. This methodology ensures that our risk models are not only accurate but also resilient in various market environments.
+
+## Key Backtesting Settings
+
+Our backtesting model incorporates a number of key parameters designed to assess the risk under various market conditions. Below are the settings used in our evaluation:
+
+| **Parameter**              | **Value**        |
+|----------------------------|------------------|
+| **Number of Portfolios**    | 1,000 portfolios |
+| **Scenarios per Portfolio** | 100,000 scenarios |
+| **Backtests per Scenario**  | 252 days (1 year of daily data) |
+| **Time Horizon**            | 10-day holding period |
+| **Confidence Level**        | 99% (Standard for regulatory requirements) |
+| **Interest Rate Models**    | Vasicek, CIR     |
+| **Volatility Lookback**     | 25 days (reflecting typical volatility calculations) |
+| **Market Conditions**       | Normal and Stressed scenarios |
+
+These settings are chosen to provide a comprehensive view of risk, from day-to-day fluctuations to extreme market conditions, ensuring the highest level of accuracy in risk predictions.
 
 ## Backtesting Results
 
-<Frame>
-    ![title](/images/backtesting.png)
-</Frame>
+The following table summarizes the exceedances of the Value at Risk (VaR) model under the 99% confidence level over the testing period. Exceedances occur when the actual loss exceeds the predicted VaR, helping to assess the effectiveness of the model in extreme conditions.
 
-## Breakdown By Asset
+| **Exceedances** | 0    | 1    | 2    | 3    | 4    | 5    | 6    | 7    | 8    | 9    | 10   |
+|-----------------|------|------|------|------|------|------|------|------|------|------|------|
+| **Percentage**  | 4.47% | 14.63% | 21.54% | 30.89% | 17.89% | 6.10% | 3.25% | 0.82% | 0.41% | 0%   | 0%   |
 
-### Stocks 
+- **Exceedances**: The number of times the portfolio loss exceeded the predicted VaR at the 99% confidence level.
+- **Interpretation**: A lower number of exceedances at a 99% confidence level indicates a more reliable risk model. Here, we see that exceedances are well below the expected threshold, ensuring the model’s robustness.
 
-| Exceedances | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
-|-|---|---|---|---|---|---|---|---|---|---|----|
-|  | 4.47% | 14.63% | 21.54% | 30.89% | 17.89% | 6.10% | 3.25% | 0.82% | 0.41% | 0% | 0% |
+## Basel III Compliance Highlights
 
-### Derivatives 
+In compliance with the Basel III framework, our backtesting process ensures:
 
-| Exceedances | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
-|-|---|---|---|---|---|---|---|---|---|---|----|
-|  | 12.14% | 26.67% | 21.715% | 23.93% | 11.97% | 2.74% | 0.51% | 0.34% | 0% | 0% | 0% |
+- **Capital Adequacy**: The model helps determine if the portfolios meet the minimum capital requirements to withstand potential market shocks.
+- **Market Risk Assessment**: By simulating different market scenarios, we validate the effectiveness of risk mitigation strategies.
+- **Stress Testing**: A core component of Basel III, stress testing evaluates how portfolios behave under extreme market conditions, such as a financial crisis.
+
+These components collectively allow for an in-depth understanding of the financial risk associated with each portfolio, ensuring that risk exposure is managed and mitigated appropriately.
+
+---
+
+## Additional Resources
+
+- [Learn more about Basel III Accords](https://www.bis.org/bcbs/basel3.htm)
+- [How Value at Risk (VaR) is Calculated](https://www.investopedia.com/terms/v/var.asp)
+- [Portfolio Management Best Practices](https://www.morningstar.com/articles/1013870/portfolio-management-best-practices)
+
+---

@@ -1,0 +1,29 @@
+---
+title: Bonds
+description: ''
+icon: 'landmark'
+---
+
+To include bonds in your portfolio submission to the Plutus:VaR API, each bond asset can have the following customizable properties:
+
+## Properties
+- **Face Value**: The total face value of the bond position.
+- **Maturity**: The bond's maturity date in `YYYY-MM-DD` format.
+- **Interest Rate**: The annual interest rate of the bond, expressed as a decimal (e.g., `0.035` for a 3.5% coupon).
+- **Quantity**: The face value or number of units held in the bond position.
+
+## Modeling Different Types of Bonds
+
+Using the above properties, you can model any type of bond in your portfolio. This includes:
+
+### Domestic Government Bonds
+- **Example**: U.S. Treasury bonds, UK Gilts, or bonds issued by other domestic government entities.
+- **Customizations**: Specify the bond's face value, maturity date, and coupon rate to represent any treasury bond issued by the government of your country.
+
+### Corporate Bonds
+- **Example**: Bonds issued by private corporations (e.g., Apple, IBM, or Tesla).
+- **Customizations**: Corporate bonds often have different coupon rates and maturities compared to government bonds, which you can represent by adjusting the `Interest Rate` and `Maturity` fields. You can also model different credit ratings by adjusting the yield curve assumptions when running your simulations.
+
+### Foreign Government Bonds
+- **Example**: Bonds issued by foreign governments, such as German Bunds, Japanese Government Bonds (JGBs), or bonds from emerging market governments.
+- **Customizations**: For foreign government bonds, you can adjust the currency of the bond, the interest rate, and the maturity date. You may also want to take exchange rate risk into account, which can be modeled by including the currency in your portfolio and submitting cash or forex positions as needed.
