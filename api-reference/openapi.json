@@ -235,11 +235,6 @@
                   "format": "float"
                 }
               },
-              "method": {
-                "description": "The sampling method to use",
-                "type": "string",
-                "enum": ["Historical", "Monte-Carlo"]
-              },
               "startDate": {
                 "description": "The start date of the historical period to sample from",
                 "type": "string"
@@ -316,11 +311,6 @@
                   "type": "number",
                   "format": "float"
                 }
-              },
-              "method": {
-                "description": "The sampling method to use",
-                "type": "string",
-                "enum": ["Monte-Carlo", "Historical"]
               },
               "volatilityLookbackDays": {
                 "description": "The number of lookback days to use for volatility calibration",
