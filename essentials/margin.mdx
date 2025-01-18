@@ -1,0 +1,85 @@
+---
+title: Margin Requirements
+description: 'Powered by our cutting-edge VaR engine'
+icon: 'ruler-combined'
+---
+
+## Portfolio
+
+Let’s start by covering the asset types and properties supported in Plutus:Margin, guiding you through constructing your first portfolio for submission.
+
+<AccordionGroup>
+    <Accordion title="Asset Types" icon="layer-group">
+        We support a wide range of asset types, including:
+
+        - [Futures](/essentials/assets/futures)
+
+        Each asset type has its own unique properties and configurations that you can customize to reflect your holdings.
+    </Accordion>
+
+    <Accordion title="Portfolio Building" icon="hammer">
+        Learn how to [build a robust portfolio](/essentials/step-by-step/construct-portfolio) with Plutus:Margin.
+
+        We’ll guide you through adding assets, defining positions, and setting quantities. You’ll be ready to submit your portfolio in no time.
+    </Accordion>
+</AccordionGroup>
+
+## Margin Requirements
+
+Once your portfolio is built, we’ll show you how to submit it to the Plutus:Margin engine and customize your margin calculation settings.
+
+With Plutus:Margin, you can:
+- Calculate **Initial Margin**: Determine the minimum amount of collateral required to initiate positions in your portfolio
+- Calculate **Variation Margin**: Dynamically track the daily gains and losses on your open positions, enabling real-time adjustments to your margin requirements
+- Calculate **Maintenance Margin**: Account for additional collateral requirements needed to maintain positions over time, especially during periods of heightened market volatility
+
+Whether you need a basic risk estimate or a detailed simulation, our engine gives you flexibility and precision.
+
+## VaR vs SPAN
+
+Our margin calculation engine redefines precision and flexibility by utilizing a Value at Risk (VaR) methodology, delivering an advanced alternative to traditional SPAN-based systems.
+By prioritizing VaR, Plutus:Margin offers a forward-thinking approach that empowers you to calculate margins with higher accuracy, adapt to evolving market dynamics, and optimize capital efficiency.
+
+### Why VaR?
+
+    **Granular Risk Assessment**:
+        VaR measures the potential loss in portfolio value over a specific time frame and confidence level, providing a more accurate and nuanced understanding of risk compared to SPAN’s rigid, grid-based approach.
+        It allows you to account for the correlations between assets, enhancing the precision of margin requirements.
+
+    **Flexibility in Methodology**:
+        Choose between Monte Carlo simulations for a more stochastic, scenario-driven analysis or Historical VaR, which leverages real market data for a realistic view of potential risks.
+        Unlike SPAN, which relies on predefined risk scenarios, VaR provides a tailored calculation that adapts to your unique portfolio composition and market conditions.
+
+    **Adaptability Across Asset Classes**:
+        VaR can seamlessly handle portfolios with diverse asset classes, including stocks, options, futures, and bonds, without the constraints of SPAN’s scenario-based structure.
+
+### Limitations of SPAN:
+
+    **Inflexibility**: SPAN uses predefined market scenarios that may not align with your specific risk profile or the complexities of modern portfolios.
+
+    **Siloed Calculations**: It often treats asset classes in isolation, missing the broader portfolio-level interactions and risk exposures.
+    
+    **Static Parameters**: SPAN’s fixed parameters lack the adaptability to changing market conditions, potentially underestimating risks during periods of high volatility.
+
+## Signing Up
+
+Select from flexible subscription plans tailored to your specific margin calculation and risk management needs. Whether you're a beginner or a seasoned professional, our platform adapts to your requirements, giving you the tools to succeed.
+
+Interested in learning more? Visit the links below to dive deeper into our margin calculation engine and other groundbreaking solutions by **Vorticity**.
+
+<CardGroup cols={2}>
+  <Card
+    title="Plutus:Margin"
+    icon="pen-to-square"
+    href="https://www.plutus.vorticity.xyz"
+  >
+    Learn more about Plutus and sign up for access to our Margin engine.
+  </Card>
+  <Card
+    title="Vorticity"
+    icon="image"
+    href="https://www.vorticity.xyz"
+  >
+    Discover Vorticity’s cutting-edge projects and solutions across science and technology.
+  </Card>
+</CardGroup>

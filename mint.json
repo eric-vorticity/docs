@@ -48,12 +48,14 @@
   ],
   "navigation": [
     {
-      "group": "Getting Started",
-      "pages": [
-        "essentials/introduction",
-        "essentials/our-mission",
-        "essentials/basel-backtesting"
-      ]
+        "group": "Getting Started",
+        "pages": [
+            "essentials/introduction",
+            "essentials/our-mission",
+            "essentials/var",
+            "essentials/margin",
+            "essentials/basel-backtesting"
+        ]
     },
     {
         "group": "Asset Types",
@@ -77,40 +79,43 @@
         ]
     },
     {
-      "group": "Monte-Carlo",
-      "pages": [
-        "api-reference/mc-endpoints/submit",
-        "api-reference/mc-endpoints/get",
-        "api-reference/mc-endpoints/stop"
-      ]
-    },
-    {
-        "group": "Historical",
+        "group": "Margin Calculation",
         "pages": [
-          "api-reference/hs-endpoints/submit",
-          "api-reference/hs-endpoints/get",
-          "api-reference/hs-endpoints/stop"
+            "api-reference/margin_endpoints/submit_margin_mc",
+            "api-reference/margin_endpoints/submit_margin_hs",
+            "api-reference/margin_endpoints/get_corr_mc",
+            "api-reference/margin_endpoints/get_corr_hs"
         ]
     },
     {
-      "group": "Coming Soon",
-      "pages": [
-        "coming-soon/requests",
-        "coming-soon/ui"
-      ]
+        "group": "Value at Risk",
+        "pages": [
+            "api-reference/var_endpoints/submit_mc",
+            "api-reference/var_endpoints/submit_hs",
+            "api-reference/var_endpoints/get",
+            "api-reference/var_endpoints/stop"
+        ]
     },
     {
-      "group": "Changelog",
-      "pages": [
-        "change-log/log"
-      ]
+        "group": "Coming Soon",
+        "pages": [
+            "coming-soon/requests",
+            "coming-soon/liquidity_risk",
+            "coming-soon/ui"
+        ]
+    },
+    {
+        "group": "Changelog",
+        "pages": [
+            "change-log/log"
+        ]
     }
   ],
   "footerSocials": {
-    "website": "https://plutus.vorticity.xyz/",
-    "github": "https://github.com/VORTICITY-INC",
-    "linkedin": "https://www.linkedin.com/company/vorticityinc",
-    "youtube": "https://youtube.com/@vorticity6167?si=Vh1oBIQ1TbVJ-jkA",
-    "medium": "https://medium.com/vorticity-xyz/meet-plutus-var-the-future-of-risk-analysis-9cbe4821254b"
+        "website": "https://plutus.vorticity.xyz/",
+        "github": "https://github.com/VORTICITY-INC",
+        "linkedin": "https://www.linkedin.com/company/vorticityinc",
+        "youtube": "https://youtube.com/@vorticity6167?si=Vh1oBIQ1TbVJ-jkA",
+        "medium": "https://medium.com/vorticity-xyz/meet-plutus-var-the-future-of-risk-analysis-9cbe4821254b"
   }
 }

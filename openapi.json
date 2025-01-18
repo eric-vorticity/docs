@@ -1,0 +1,567 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "Plutus:VaR REST API",
+        "description": "A REST API for interacting with Plutus:VaR engine.",
+        "license": {
+            "name": "MIT"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "https://5uftseufe1.execute-api.us-east-2.amazonaws.com/prod/"
+        }
+    ],
+    "security": [
+        {
+            "apiKeyAuth": []
+        }
+    ],
+    "paths": {
+        "/submit_job/montecarlo/{data_format}": {
+            "post": {
+                "description": "Submits a Monte-Carlo Method Value at Risk job",
+                "parameters": [
+                    {
+                        "name": "data_format",
+                        "in": "path",
+                        "description": "Format of the portfolio data",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": ["fpml", "csv", "json", "xml", "yaml"]
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Job to submit to the server",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/endpoint_components/schemas/MC-Submit"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "server response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                "$ref": "#/asset_type_components/schemas/Job"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                "$ref": "#/asset_type_components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/submit_job/historical/{data_format}": {
+            "post": {
+                "description": "Submits a Historical Method Value at Risk job",
+                "parameters": [
+                    {
+                        "name": "data_format",
+                        "in": "path",
+                        "description": "Format of the portfolio data",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": ["fpml", "csv", "json", "xml", "yaml"]
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Job to submit to the server",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/endpoint_components/schemas/HS-Submit"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "server response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/asset_type_components/schemas/Job"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/asset_type_components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/get_job/{job_id}/{data_type}/{data_format}": {
+            "get": {
+                "description": "Returns the results of a job or its status based on the ID supplied",
+                "parameters": [
+                    {
+                        "name": "job_id",
+                        "in": "path",
+                        "description": "ID of the job to retrieve",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "data_type",
+                        "in": "path",
+                        "description": "Whether to retrieve the portfolio-level, marginal-level, or distribution results data",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": ["marginal", "portfolio", "histogram"]
+                        }
+                    },
+                    {
+                        "name": "data_format",
+                        "in": "path",
+                        "description": "File format to retrieve the results in",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": ["fpml", "csv", "json", "xml", "yaml"]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response with the job results in CSV format",
+                        "content": {
+                            "text/csv": {
+                                "schema": {
+                                "type": "string",
+                                "format": "binary"
+                                },
+                                "examples": {
+                                    "example-1": {
+                                        "summary": "A sample CSV response",
+                                        "value": [
+                                        "Ticker, 90%_VaR, 95%_VaR, 99%_VaR, 90%_CVaR, 95%_CVaR, 99%_CVaR, Market Value, Quantity",
+                                        "Portfolio, -9.3, -11.3, -14.8, -13.5, -16.5, -18.2, 35000,,",
+                                        "AAPL, -5.2, -6.3, -8.1, -7.5, -9.0, -11.2, 150000, 1000",
+                                        "GOOGL, -4.1, -5.0, -6.7, -6.0, -7.5, -9.0, 200000, 500"
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                "$ref": "#/asset_type_components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/stop_job/{job_id}": {
+            "post": {
+                "description": "Stops a single job based on the ID supplied",
+                "parameters": [
+                    {
+                        "name": "job_id",
+                        "in": "path",
+                        "description": "ID of job to stop",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                "204": {
+                    "description": "Plant deleted",
+                    "content": {}
+                },
+                "400": {
+                    "description": "unexpected error",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/asset_type_components/schemas/Error"
+                            }
+                        }
+                    }
+                }
+                }
+            }
+        }
+    },
+    "endpoint_components": {
+        "schemas": {
+            "HS-Submit": {
+                "required": [
+                    "name"
+                ],
+                "type": "object",
+                "properties": {
+                    "numScenarios": {
+                        "description": "The number of simulated scenarios to run",
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "timeHorizonDays": {
+                        "description": "The number of days forward to simulate in each scenario",
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "confidenceLevels": {
+                        "description": "The confidence levels",
+                        "type": "array",
+                        "items": {
+                            "type": "number",
+                            "format": "float"
+                        }
+                    },
+                    "volatilityLookbackDays": {
+                        "description": "The number of lookback days to use for volatility calibration",
+                        "type": "number",
+                        "format": "integer"
+                    },
+                    "ewmaDecayFactor": {
+                        "description": "The lambda decay factor for computing the exponentially weighted moving average",
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "volatilityMultiplier": {
+                        "description": "The multiplier to apply to market-calibrated volatilities",
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "settings": {
+                        "description": "The settings of the Historical simulation",
+                        "type": "object",
+                        "properties": {
+                            "startDate": {
+                                "description": "The start date of the historical period to sample from",
+                                "type": "string"
+                            },
+                            "endDate": {
+                                "description": "The end date of the historical period to sample from",
+                                "type": "string"
+                            },
+                            "addedDates": {
+                                "description": "List of single dates to add to the historical period",
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            },
+                            "excludedDates": {
+                                "description": "List of single dates to exclude from the historical period",
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "portfolio": {
+                        "description": "Your portfolio of positions",
+                        "type": "object",
+                        "properties": {
+                            "futures": {
+                                "$ref": "#/asset_type_components/schemas/FuturePositions"
+                            },
+                            "stocks": {
+                                "$ref": "#/asset_type_components/schemas/StockPositions"
+                            },
+                            "options": {
+                                "$ref": "#/asset_type_components/schemas/OptionPositions"
+                            },
+                            "bonds": {
+                                "$ref": "#/asset_type_components/schemas/BondPositions"
+                            }
+                        }
+                    }
+                }
+            },
+            "MC-Submit": {
+                "required": [
+                "name"
+                ],
+                "type": "object",
+                "properties": {
+                    "numScenarios": {
+                        "description": "The number of simulated scenarios to run",
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "timeHorizonDays": {
+                        "description": "The number of days forward to simulate in each scenario",
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "confidenceLevels": {
+                        "description": "The confidence levels",
+                        "type": "array",
+                        "items": {
+                            "type": "number",
+                            "format": "float"
+                        }
+                    },
+                    "volatilityLookbackDays": {
+                        "description": "The number of lookback days to use for volatility calibration",
+                        "type": "number",
+                        "format": "integer"
+                    },
+                    "ewmaDecayFactor": {
+                        "description": "The lambda decay factor for computing the exponentially weighted moving average",
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "volatilityMultiplier": {
+                        "description": "The multiplier to apply to market-calibrated volatilities",
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "settings": {
+                        "description": "The settings of the Monte-Carlo simulation",
+                        "type": "object",
+                        "properties": {
+                            "distributionAssumption": {
+                                "description": "The assumed underlying profit/loss distribution shape",
+                                "type": "string",
+                                "enum": ["Normal", "Log-Normal", "Student"]
+                            }
+                        }
+                    },
+                    "portfolio": {
+                        "description": "Your portfolio of positions",
+                        "type": "object",
+                        "properties": {
+                            "futures": {
+                                "$ref": "#/asset_type_components/schemas/FuturePositions"
+                            },
+                            "stocks": {
+                                "$ref": "#/asset_type_components/schemas/StockPositions"
+                            },
+                            "options": {
+                                "$ref": "#/asset_type_components/schemas/OptionPositions"
+                            },
+                            "bonds": {
+                                "$ref": "#/asset_type_components/schemas/BondPositions"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "asset_type_components": {
+        "schemas": {
+            "FuturePositions": {
+                "description": "Positions in futures",
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "ticker": {
+                            "description": "The ticker symbol of the future",
+                            "type": "string"
+                        },
+                        "is_long":{ 
+                            "description": "Whether the position is long or short",
+                            "type": "boolean"
+                        },
+                        "quantity": {
+                            "description": "The number of contracts held",
+                            "type": "number",
+                            "format": "float"
+                        }
+                    }
+                }
+            },
+            "StockPositions": {
+                "description": "Positions in stocks",
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "ticker": {
+                            "description": "The ticker symbol of the stock",
+                            "type": "string"
+                        },
+                        "is_long":{ 
+                            "description": "Whether the position is long or short",
+                            "type": "boolean"
+                        },
+                        "quantity": {
+                            "description": "The number of shares held",
+                            "type": "number",
+                            "format": "float"
+                        }
+                    }
+                }
+            },
+            "OptionPositions": {
+                "description": "Positions in options",
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "ticker": {
+                            "description": "The ticker symbol of the underlying stock",
+                            "type": "string"
+                        },
+                        "is_long": {
+                            "description": "Tag to specify long or short",
+                            "type": "boolean"
+                        },
+                        "style": {
+                            "description": "Tag to specify the payoff style",
+                            "type": "string",
+                            "enum": ["european", "euro", "eu", "e", "american", "amer", "am", "a"]
+                        },
+                        "is_call": {
+                            "description": "Tag to specify put or call",
+                            "type": "boolean"
+                        },
+                        "strike": {
+                            "description": "The strike price",
+                            "type": "number",
+                            "format": "float"
+                        },
+                        "maturity": {
+                            "description": "The maturity date (yyyy-mm-dd)",
+                            "type": "string",
+                            "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+                        },
+                        "quantity": {
+                            "description": "The number of contracts held",
+                            "type": "number",
+                            "format": "float"
+                        }
+                    }
+                }
+            },
+            "BondPositions": {
+                "description": "Positions in bonds",
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "faceValue": {
+                        "description": "The total face value of the bond",
+                        "type": "number",
+                        "format": "float"
+                        },
+                        "interestRate": {
+                            "description": "The annualized interest rate of the bond",
+                            "type": "number",
+                            "format": "float"
+                        },
+                        "maturity": {
+                            "description": "The maturity date of the bond",
+                            "type": "string"
+                        },
+                        "quantity": {
+                            "description": "The number of bonds held",
+                            "type": "number",
+                            "format": "float"
+                        }
+                    }
+                }
+            },
+            "Job": {
+                "required": [
+                    "job_id",
+                    "status"
+                ],
+                "type": "object",
+                "properties": {
+                    "job_id": {
+                        "description": "The ID of the successfully submitted job",
+                        "type": "string"
+                    },
+                    "status": {
+                        "description": "The status of the job submission request",
+                        "type": "string"
+                    }
+                }
+            },
+            "Result": {
+                "required": [
+                    "job_id",
+                    "status"
+                ],
+                "type": "object",
+                "properties": {
+                    "job_id": {
+                        "description": "The ID of the successfully submitted job",
+                        "type": "string"
+                    },
+                    "status": {
+                        "description": "The status of the job submission request",
+                        "type": "string"
+                    }
+                }
+            },
+            "Error": {
+                "required": [
+                    "error",
+                    "message"
+                ],
+                "type": "object",
+                "properties": {
+                    "error": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "message": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer"
+            },
+            "apiKeyAuth": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "x-api-key",
+                "description": "Server authentication header of the form `x-api-key: <api-key>`, where `<api-key>` is your auth token"
+            }
+        }
+    }
+}

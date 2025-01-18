@@ -4,11 +4,36 @@ description: 'New updates and improvements'
 icon: ''
 ---
 
+<Update label="December 28, 2024" description="v0.3.1">
+  ## Feature Additions 
+    - **Correlation Endpoint**: Added the ability to compute correlation matrices between portfolio positions, enabling users to analyze dependencies and relationships between assets more effectively.
+
+  ## API Updates
+    - Added new endpoint for retreiving portfolio correlations.
+</Update>
+
+
+<Update label="December 14, 2024" description="v0.3.0">
+  ## Feature Additions 
+    - **Margin Calculation Engine**: Launched the new margin calculation engine, enabling accurate and flexible calculations for Initial, Variation, and Continuation Margins. Built on the VaR framework, it provides advanced alternatives to SPAN-based systems.
+
+  ## API Updates
+    - Added new endpoint for submitting margin calculations.
+</Update>
+
+
+<Update label="November 25, 2024" description="v0.2.1">
+  ## Model Updates
+    - Introduced support for Student t-distribution assumptions in both Monte Carlo and Historical VaR methods, enabling better modeling of fat-tailed distributions and extreme market events.
+</Update>
+
+
 <Update label="November 05, 2024" description="v0.2.0">
   ## API Updates
    - **GPU Improvements**: Additional support added, enabling efficient scaling across multiple GPUs for larger workloads.
    - **Backend Refactor**: Complete backend software overhaul to enhance speed and processing efficiency.
 </Update>
+
 
 <Update label="November 01, 2024" description="v0.1.4">
   ## API Updates
@@ -20,6 +45,7 @@ icon: ''
    - **Distribution Histogram**: Users can now download histogram data representing the simulated profit and loss distribution from their Value at Risk assessment, providing deeper insight into portfolio risk profiles.
 </Update>
 
+
 <Update label="September 03, 2024" description="v0.1.3">
   ## API Updates
    - Added option to adjust volatility calibration parameters through the `volatilityLookBackDays` and `ewmaDecayFactor` settings.
@@ -28,6 +54,7 @@ icon: ''
   ## Feature Additions
    - **Stress Testing** support added for both Monte Carlo and Historical methods, allowing users to simulate adverse market conditions for enhanced risk assessment.
 </Update>
+
 
 <Update label="October 22, 2024" description="v0.1.2">
   ## API Updates
@@ -38,10 +65,12 @@ icon: ''
    - **Marginal VaR**: Added as a feature in the results, providing detailed breakdowns of risk contributions for individual portfolio positions.
 </Update>
 
+
 <Update label="September 03, 2024" description="v0.1.1">
   ## Feature Additions
    - **Futures and Commodities** added as new asset classes, extending coverage beyond stocks, options, and bonds.
 </Update>
+
 
 <Update label="June 12, 2024" description="v0.1.0">
   ## API Updates
