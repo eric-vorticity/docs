@@ -990,23 +990,6 @@
           }
         }
       },
-      "CorrJob": {
-        "required": [
-          "results",
-          "status"
-        ],
-        "type": "object",
-        "properties": {
-          "results": {
-            "description": "The raw correlation matrix values in .csv format",
-            "type": "string"
-          },
-          "status": {
-            "description": "The status of the job submission request",
-            "type": "string"
-          }
-        }
-      },
       "Result": {
         "required": [
           "job_id",
