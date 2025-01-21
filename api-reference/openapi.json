@@ -432,28 +432,43 @@
         ],
         "type": "object",
         "properties": {
+          "numScenarios": {
+            "description": "The number of simulated scenarios to run",
+            "type": "integer",
+            "format": "int32"
+          },
+          "timeHorizonDays": {
+            "description": "The number of days forward to simulate in each scenario",
+            "type": "integer",
+            "format": "int32"
+          },
+          "confidenceLevels": {
+            "description": "The confidence levels",
+            "type": "array",
+            "items": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          "volatilityLookbackDays": {
+            "description": "The number of lookback days to use for volatility calibration",
+            "type": "number",
+            "format": "integer"
+          },
+          "ewmaDecayFactor": {
+            "description": "The lambda decay factor for computing the exponentially weighted moving average",
+            "type": "number",
+            "format": "float"
+          },
+          "volatilityMultiplier": {
+            "description": "The multiplier factor to apply to the calibrated volatilities",
+            "type": "number",
+            "format": "float"
+          },
           "settings": {
             "description": "The settings of the simulation",
             "type": "object",
             "properties": {
-              "numScenarios": {
-                "description": "The number of simulated scenarios to run",
-                "type": "integer",
-                "format": "int32"
-              },
-              "timeHorizonDays": {
-                "description": "The number of days forward to simulate in each scenario",
-                "type": "integer",
-                "format": "int32"
-              },
-              "confidenceLevels": {
-                "description": "The confidence levels",
-                "type": "array",
-                "items": {
-                  "type": "number",
-                  "format": "float"
-                }
-              },
               "startDate": {
                 "description": "The start date of the historical period to sample from",
                 "type": "string"
@@ -504,37 +519,47 @@
         ],
         "type": "object",
         "properties": {
+          "numScenarios": {
+            "description": "The number of simulated scenarios to run",
+            "type": "integer",
+            "format": "int32"
+          },
+          "timeHorizonDays": {
+            "description": "The number of days forward to simulate in each scenario",
+            "type": "integer",
+            "format": "int32"
+          },
+          "confidenceLevels": {
+            "description": "The confidence levels",
+            "type": "array",
+            "items": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          "volatilityLookbackDays": {
+            "description": "The number of lookback days to use for volatility calibration",
+            "type": "number",
+            "format": "integer"
+          },
+          "ewmaDecayFactor": {
+            "description": "The lambda decay factor for computing the exponentially weighted moving average",
+            "type": "number",
+            "format": "float"
+          },
+          "volatilityMultiplier": {
+            "description": "The multiplier factor to apply to the calibrated volatilities",
+            "type": "number",
+            "format": "float"
+          },
           "settings": {
             "description": "The settings of the simulation",
             "type": "object",
             "properties": {
-              "numScenarios": {
-                "description": "The number of simulated scenarios to run",
-                "type": "integer",
-                "format": "int32"
-              },
-              "timeHorizonDays": {
-                "description": "The number of days forward to simulate in each scenario",
-                "type": "integer",
-                "format": "int32"
-              },
-              "confidenceLevels": {
-                "description": "The confidence levels",
-                "type": "array",
-                "items": {
-                  "type": "number",
-                  "format": "float"
-                }
-              },
-              "volatilityLookbackDays": {
-                "description": "The number of lookback days to use for volatility calibration",
-                "type": "number",
-                "format": "integer"
-              },
-              "ewmaDecayFactor": {
-                "description": "The lambda decay factor for computing the exponentially weighted moving average",
-                "type": "number",
-                "format": "float"
+              "distributionAssumption": {
+                  "description": "The assumed distribution of underlying price movements",
+                  "type": "string",
+                  "enum": ["Normal", "Log-Normal", "Student"]
               }
             }
           },
