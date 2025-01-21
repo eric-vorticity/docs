@@ -8,9 +8,35 @@ To include bonds in your portfolio submission to the Plutus:VaR API, each bond a
 
 ## Properties
 - **Face Value**: The total face value of the bond position.
-- **Maturity**: The bond's maturity date in `YYYY-MM-DD` format.
 - **Interest Rate**: The annual interest rate of the bond, expressed as a decimal (e.g., `0.035` for a 3.5% coupon).
+- **Issuance Date**: The bond's issuance date in `YYYY-MM-DD` format.
+- **Maturity**: The bond's maturity date in `YYYY-MM-DD` format.
 - **Quantity**: The face value or number of units held in the bond position.
+
+<CodeGroup>
+```json JSOM/YAML
+"bonds": [
+    {
+        "face_value": "10000",
+        "interest_rate": 0.03,
+        "issuance_date": "2023/01/01",
+        "maturity": "2024/01/01",
+        "quantity": 100
+    }
+]
+```
+```json FPML/XML
+<bonds>
+    <bond>
+        <face_value>10000</face_value>
+        <interest_rate>0.03</interest_rate>
+        <issuance_date>2023/01/01</issuance_date>
+        <maturity>2024/01/01</issuance_date>
+        <quantity>100</quantity>
+    </bond>
+</bonds>
+```
+</CodeGroup>
 
 ## Modeling Different Types of Bonds
 

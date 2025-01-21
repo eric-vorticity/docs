@@ -25,14 +25,6 @@ Plutus:VaR supports both of these widely used formats, giving you flexibility in
 
 <CodeGroup>
 ```json JSON/YAML
-{"settings": {
-    "numScenarios": 100000,
-    "timeHorizonDays": 10,
-    "dataInputFormat": "YAML",
-    "confidenceLevels": [0.90, 0.95, 0.99],
-    "method": "Monte-Carlo",
-    "distributionAssumption": "Log-Normal",
-},
 "portfolio": {
     "futures": [ /* Future positions here */ ],
     "stocks": [ /* Stock positions here */ ],
@@ -42,14 +34,6 @@ Plutus:VaR supports both of these widely used formats, giving you flexibility in
 ```
 
 ```json FPML/XML
-{"settings": {
-    "numScenarios": 100000,
-    "timeHorizonDays": 10,
-    "dataInputFormat": "YAML",
-    "confidenceLevels": [0.90, 0.95, 0.99],
-    "method": "Monte-Carlo",
-    "distributionAssumption": "Log-Normal",
-},
 "portfolio": {
     <portfolio>
         <stocks>

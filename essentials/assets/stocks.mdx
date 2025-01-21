@@ -8,9 +8,40 @@ When using the Plutus:VaR API, you can include stock assets in your portfolio su
 
 ## Properties
 
-- **Ticker**: The unique identifier of the stock (e.g., `"SPY"` for the S&P 500 ETF).
-- **Type**: Specifies whether the position is `"long"` or `"short"`.
+- **Ticker**: The unique identifier of the stock (e.g., `"AAPL"` for Apple Inc).
+- **Is_Long**: Specifies whether the position is `"long"` or `"short"`.
 - **Quantity**: The number of shares held.
+
+<CodeGroup>
+```json JSOM/YAML
+"stocks": [
+    {
+        "ticker": "SPY",
+        "is_long": true,
+        "quantity": 1000
+    },
+    {
+        "ticker": "QQQ",
+        "is_long": true,
+        "quantity": 500
+    }
+]
+```
+```json FPML/XML
+<stocks>
+    <stock>
+        <ticker>SPY</ticker>
+        <is_long>true</is_long>
+        <quantity>1000</quantity>
+    </stock>
+    <stock>
+        <ticker>QQQ</ticker>
+        <is_long>true</is_long>
+        <quantity>500</quantity>
+    </stock>
+</stocks>
+```
+</CodeGroup>
 
 ## Modeling Different Types of Stocks
 

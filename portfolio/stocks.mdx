@@ -14,7 +14,7 @@ Stocks represent shares of individual companies in your portfolio. Below are the
   The Bloomberg ticker symbol of the stock.  
   _Example:_ `"SPY"` for S&P 500 ETF.
 
-- **`type`** (string)  
+- **`is_long`** (bool)  
   Specifies the position type, either `"long"` or `"short"`.  
   _Example:_ `"long"`.
 
@@ -29,12 +29,12 @@ Stocks represent shares of individual companies in your portfolio. Below are the
   "stocks": [
     {
       "ticker": "SPY",
-      "type": "long",
+      "is_long": "long",
       "quantity": 1000
     },
     {
       "ticker": "QQQ",
-      "type": "long",
+      "is_long": "long",
       "quantity": 500
     }
   ]

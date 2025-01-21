@@ -11,39 +11,40 @@ To submit your portfolio for risk analysis, you'll need to make a `POST` request
 ## Required Information
 
 1. **API Key**: You must include your personal API key in the request headers to authenticate.
-2. **Portfolio JSON**: The portfolio you have constructed in the previous section.
+2. **Portfolio**: The portfolio you have constructed in the previous section.
 3. **Settings**: The settings that define the analysis parameters, such as number of scenarios, confidence levels, and volatility assumptions.
 
 ## Example API Request
 
 Below is a full example of the API request you’ll need to make to submit your portfolio. This request assumes that you have already constructed your portfolio JSON as shown in the previous section.
 
-```bash
+<CodeGroup>
+```bash JSON/YAML
 curl -X POST \
 -H "x-api-key: {your-api-key-here}" \
 -H "Content-Type: application/json" \
-https://5uftseufe1.execute-api.us-east-2.amazonaws.com/prod/submit_job \
+https://5uftseufe1.execute-api.us-east-2.amazonaws.com/prod/submit_job/monte-carlo/yaml \
 -d '{
+    "numScenarios": 100000,
+    "timeHorizonDays": 10,
+    "confidenceLevels": [0.90, 0.95, 0.99],
+    "volatilityLookbackDays": 25,
+    "ewmaDecayFactor": 0.94,
+    "volatilityMultiplier": 1.0,
     "settings": {
-        "numScenarios": 100000,
-        "timeHorizonDays": 10,
-        "dataInputFormat": "YAML",
-        "confidenceLevels": [0.90, 0.95, 0.99],
-        "method": "Monte-Carlo",
         "distributionAssumption": "Log-Normal",
-        "volatilityLookbackDays": 25
     },
     "portfolio": {
         "futures": [
             {
-                "ticker": "ES=F",
-                "type": "long",
-                "maturity": "2024-12-01",
+                "ticker": "ESH25",
+                "is_long": "long",
+                "size": 50,
                 "quantity": 100
             },
             {
-                "ticker": "YM=F",
-                "type": "long",
+                "ticker": "YMH25",
+                "is_long": "long",
                 "maturity": "2024-12-01",
                 "quantity": 500
             }
@@ -51,21 +52,21 @@ https://5uftseufe1.execute-api.us-east-2.amazonaws.com/prod/submit_job \
         "stocks": [
             {
                 "ticker": "SPY",
-                "type": "long",
+                "is_long": "long",
                 "quantity": 1000
             },
             {
                 "ticker": "QQQ",
-                "type": "long",
+                "is_long": "long",
                 "quantity": 500
             }
         ],
         "options": [
             {
                 "ticker": "SPY",
-                "type": "Long",
+                "is_long": "Long",
                 "style": "american",
-                "put": "Call",
+                "is_call": "Call",
                 "strike": 568,
                 "maturity": "2025-10-31",
                 "quantity": 2000
@@ -73,3 +74,66 @@ https://5uftseufe1.execute-api.us-east-2.amazonaws.com/prod/submit_job \
         ]
     }
 }'
+```
+```bash FPML/XML
+curl -X POST \
+-H "x-api-key: {your-api-key-here}" \
+-H "Content-Type: application/json" \
+https://5uftseufe1.execute-api.us-east-2.amazonaws.com/prod/submit_job/monte-carlo/yaml \
+-d '{
+    "numScenarios": 100000,
+    "timeHorizonDays": 10,
+    "confidenceLevels": [0.90, 0.95, 0.99],
+    "volatilityLookbackDays": 25,
+    "ewmaDecayFactor": 0.94,
+    "volatilityMultiplier": 1.0,
+    "settings": {
+        "distributionAssumption": "Log-Normal",
+    },
+    "portfolio": {
+        <portfolio>
+            <stocks>
+                <stock>
+                    <ticker>SPY</ticker>
+                    <is_long>true</is_long>
+                    <quantity>1000</quantity>
+                </stock>
+                <stock>
+                    <ticker>QQQ</ticker>
+                    <is_long>true</is_long>
+                    <quantity>500</quantity>
+                </stock>
+            </stocks>
+            <options>
+                <option>
+                    <ticker>SPY</ticker>
+                    <is_long>true</is_long>
+                    <style>American</style>
+                    <is_call>true</is_call>
+                    <strike>600</strike>
+                    <maturity>2025/01/01</maturity>
+                    <quantity>100</quantity>
+                </option>
+            </options>
+            <futures>
+                <future>
+                    <ticker>ESH25</ticker>
+                    <is_long>true</is_long>
+                    <size>50</size>
+                    <quantity>100</quantity>
+                </future>
+            </futures>
+            <bonds>
+                <bond>
+                    <face_value>10000</face_value>
+                    <interest_rate>0.03</interest_rate>
+                    <issuance_date>2023/01/01</issuance_date>
+                    <maturity>2024/01/01</issuance_date>
+                    <quantity>100</quantity>
+                </bond>
+            </bonds>
+        </portfolio>
+    }
+}'
+```
+</CodeGroup>

@@ -16,6 +16,35 @@ When using the Plutus:VaR API, you can include option assets in your portfolio s
 - **Maturity**: The expiration date of the option in `YYYY-MM-DD` format.
 - **Quantity**: The number of option contracts held.
 
+<CodeGroup>
+```json JSOM/YAML
+"options": [
+    {
+        "ticker": "SPY",
+        "is_long": true,
+        "style": "American",
+        "is_call": true,
+        "strike": 600,
+        "maturity": "2025/01/01",
+        "quantity": 10
+    }
+]
+```
+```json FPML/XML
+<options>
+    <option>
+        <ticker>SPY</ticker>
+        <is_long>true</is_long>
+        <style>American</style>
+        <is_call>true</is_call>
+        <strike>600</strike>
+        <maturity>2025/01/01</maturity>
+        <quantity>100</quantity>
+    </option>
+</options>
+```
+</CodeGroup>
+
 ## Modeling Different Types of Options
 
 Using these customizable properties, you can model **any type of option** on an underlying stock or asset. This includes call and put options for stocks, ETFs, and other underlying assets. Below are some key types of options you can model:
