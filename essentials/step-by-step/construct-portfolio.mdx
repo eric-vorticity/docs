@@ -12,7 +12,7 @@ Once constructed, the portfolio can be submitted to the Plutus engine for risk a
 
 ## Portfolio Structure
 
-Your portfolio is defined as a JSON object containing various asset classes such as **futures**, **options**, **stocks**, and **bonds**.  
+Your portfolio is defined as a JSON object containing various asset classes such as **equities**, **futures**, **options**, and **bonds**.  
 Each asset type has required properties, allowing you to customize each holding in your portfolio.
 
 <Note> For more advanced configuration options, including stress testing and customized volatility adjustments, refer to the [API Reference](/api-reference/introduction). </Note>
@@ -28,7 +28,7 @@ Plutus supports both of these widely used formats, giving you flexibility in how
 "portfolio": {
     "equities": [ /* Equity positions here */ ],
     "options": [ /* Option positions here */ ],
-    "futures": [ /* Future positions here */ ],
+    "futures": [ /* Futures positions here */ ],
     "bonds": [ /* Bond positions here */ ]
 }
 ```
