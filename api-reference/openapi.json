@@ -273,9 +273,10 @@
           "200": {
             "description": "server response",
             "content": {
-              "application/json": {
+              "text/csv": {
                 "schema": {
-                  "$ref": "#/components/schemas/CorrJob"
+                  "type": "string",
+                  "format": "binary"
                 }
               }
             }
@@ -323,9 +324,10 @@
           "200": {
             "description": "server response",
             "content": {
-              "application/json": {
+              "text/csv": {
                 "schema": {
-                  "$ref": "#/components/schemas/CorrJob"
+                  "type": "string",
+                  "format": "binary"
                 }
               }
             }
