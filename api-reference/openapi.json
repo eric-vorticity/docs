@@ -70,159 +70,59 @@
       }
     },
     "/submit_var_job/historical/{data_format}": {
-        "post": {
-          "description": "Submits a Value at Risk job",
-          "parameters": [
-            {
-              "name": "data_format",
-              "in": "path",
-              "description": "Format of the portfolio data",
-              "required": true,
+      "post": {
+        "description": "Submits a Value at Risk job",
+        "parameters": [
+          {
+            "name": "data_format",
+            "in": "path",
+            "description": "Format of the portfolio data",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["fpml", "csv", "json", "xml", "yaml"]
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Job to submit to the server",
+          "content": {
+            "application/json": {
               "schema": {
-                "type": "string",
-                "enum": ["fpml", "csv", "json", "xml", "yaml"]
+                "$ref": "#/components/schemas/HS-Submit"
               }
             }
-          ],
-          "requestBody": {
-            "description": "Job to submit to the server",
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "server response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HS-Submit"
+                  "$ref": "#/components/schemas/Job"
                 }
               }
-            },
-            "required": true
+            }
           },
-          "responses": {
-            "200": {
-              "description": "server response",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Job"
-                  }
-                }
-              }
-            },
-            "400": {
-              "description": "unexpected error",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
+          "400": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
                 }
               }
             }
           }
         }
+      }
     },
     "/submit_margin_job/montecarlo/{data_format}": {
-        "post": {
-          "description": "Submits a Margin Calculation job",
-          "parameters": [
-              {
-                "name": "data_format",
-                "in": "path",
-                "description": "Format of the portfolio data",
-                "required": true,
-                "schema": {
-                  "type": "string",
-                  "enum": ["fpml", "csv", "json", "xml", "yaml"]
-                }
-              }
-            ],
-          "requestBody": {
-            "description": "Job to submit to the server",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MC-Submit-Margin"
-                }
-              }
-            },
-            "required": true
-          },
-          "responses": {
-            "200": {
-              "description": "server response",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/MarginJob"
-                  }
-                }
-              }
-            },
-            "400": {
-              "description": "unexpected error",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/submit_margin_job/historical/{data_format}": {
-          "post": {
-            "description": "Submits a Margin Calculation job",
-            "parameters": [
-              {
-                "name": "data_format",
-                "in": "path",
-                "description": "Format of the portfolio data",
-                "required": true,
-                "schema": {
-                  "type": "string",
-                  "enum": ["fpml", "csv", "json", "xml", "yaml"]
-                }
-              }
-            ],
-            "requestBody": {
-              "description": "Job to submit to the server",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/HS-Submit-Margin"
-                  }
-                }
-              },
-              "required": true
-            },
-            "responses": {
-              "200": {
-                "description": "server response",
-                "content": {
-                  "application/json": {
-                    "schema": {
-                      "$ref": "#/components/schemas/MarginJob"
-                    }
-                  }
-                }
-              },
-              "400": {
-                "description": "unexpected error",
-                "content": {
-                  "application/json": {
-                    "schema": {
-                      "$ref": "#/components/schemas/Error"
-                    }
-                  }
-                }
-              }
-            }
-          }
-      },
-    "/get_correlations/historical/{data_format}": {
-        "get": {
-          "description": "Calculates position-based correlation matrix",
-          "parameters": [
+      "post": {
+        "description": "Submits a Margin Calculation job",
+        "parameters": [
             {
               "name": "data_format",
               "in": "path",
@@ -234,90 +134,214 @@
               }
             }
           ],
-          "requestBody": {
-            "description": "Job to submit to the server",
+        "requestBody": {
+          "description": "Job to submit to the server",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MC-Submit-Margin"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "server response",
+            "content": {
+              "text/csv": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                },
+                "examples": {
+                  "example-1": {
+                    "summary": "A sample CSV response",
+                    "value": [
+                      "ticker,positionType,currency,entryDate,entryMarketValue,currentMarketValue,initialMargin,maintenanceMargin,variationMargin,size,quantity,portfolioWeight",
+                      "ES=F,Short,USD,2024-12-06,-304950.0,-299450.0,-14681.758163104834,-11011.318622328625,-5337.5,50.0,1.0,0.2169906625467773",
+                      "YM=F,Long,USD,2024-11-15,217840.0,217330.0,-18107.6417134145,-13580.731285060876,3570.0,5.0,1.0,0.16041000851789522",
+                      "NQ=F,Long,USD,2025-01-06,217445.0,214002.5,-26749.0148508842,-20061.76113816315,4807.5,10.0,1.0,0.15800564714694185"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "unexpected error",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Corr-Submit-HS"
-                }
-              }
-            },
-            "required": true
-          },
-          "responses": {
-            "200": {
-              "description": "server response",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/CorrJob"
-                  }
-                }
-              }
-            },
-            "400": {
-              "description": "unexpected error",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
+                  "$ref": "#/components/schemas/Error"
                 }
               }
             }
           }
         }
+      }
+    },
+    "/submit_margin_job/historical/{data_format}": {
+      "post": {
+        "description": "Submits a Margin Calculation job",
+        "parameters": [
+          {
+            "name": "data_format",
+            "in": "path",
+            "description": "Format of the portfolio data",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["fpml", "csv", "json", "xml", "yaml"]
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Job to submit to the server",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HS-Submit-Margin"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "server response",
+            "content": {
+              "text/csv": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                },
+                "examples": {
+                  "example-1": {
+                    "summary": "A sample CSV response",
+                    "value": [
+                      "ticker,positionType,currency,entryDate,entryMarketValue,currentMarketValue,initialMargin,maintenanceMargin,variationMargin,size,quantity,portfolioWeight",
+                      "ES=F,Short,USD,2024-12-06,-304950.0,-299450.0,-14681.758163104834,-11011.318622328625,-5337.5,50.0,1.0,0.2169906625467773",
+                      "YM=F,Long,USD,2024-11-15,217840.0,217330.0,-18107.6417134145,-13580.731285060876,3570.0,5.0,1.0,0.16041000851789522",
+                      "NQ=F,Long,USD,2025-01-06,217445.0,214002.5,-26749.0148508842,-20061.76113816315,4807.5,10.0,1.0,0.15800564714694185"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/get_correlations/historical/{data_format}": {
+      "get": {
+        "description": "Calculates position-based correlation matrix",
+        "parameters": [
+          {
+            "name": "data_format",
+            "in": "path",
+            "description": "Format of the portfolio data",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["fpml", "csv", "json", "xml", "yaml"]
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Job to submit to the server",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Corr-Submit-HS"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "server response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CorrJob"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
     },
     "/get_correlations/montecarlo/{data_format}": {
-        "get": {
-          "description": "Calculates position-based correlation matrix",
-          "parameters": [
-            {
-              "name": "data_format",
-              "in": "path",
-              "description": "Format of the portfolio data",
-              "required": true,
+      "get": {
+        "description": "Calculates position-based correlation matrix",
+        "parameters": [
+          {
+            "name": "data_format",
+            "in": "path",
+            "description": "Format of the portfolio data",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["fpml", "csv", "json", "xml", "yaml"]
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Job to submit to the server",
+          "content": {
+            "application/json": {
               "schema": {
-                "type": "string",
-                "enum": ["fpml", "csv", "json", "xml", "yaml"]
+                "$ref": "#/components/schemas/Corr-Submit-MC"
               }
             }
-          ],
-          "requestBody": {
-            "description": "Job to submit to the server",
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "server response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Corr-Submit-MC"
+                  "$ref": "#/components/schemas/CorrJob"
                 }
               }
-            },
-            "required": true
+            }
           },
-          "responses": {
-            "200": {
-              "description": "server response",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/CorrJob"
-                  }
-                }
-              }
-            },
-            "400": {
-              "description": "unexpected error",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
+          "400": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
                 }
               }
             }
           }
         }
+      }
     },
     "/get_job/{job_id}/{data_type}/{data_format}": {
       "get": {
@@ -956,23 +980,6 @@
         "properties": {
           "job_id": {
             "description": "The ID of the successfully submitted job",
-            "type": "string"
-          },
-          "status": {
-            "description": "The status of the job submission request",
-            "type": "string"
-          }
-        }
-      },
-      "MarginJob": {
-        "required": [
-          "results",
-          "status"
-        ],
-        "type": "object",
-        "properties": {
-          "results": {
-            "description": "The margin calculation results in .csv format",
             "type": "string"
           },
           "status": {
