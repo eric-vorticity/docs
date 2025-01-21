@@ -26,7 +26,7 @@
             {
               "name": "data_format",
               "in": "path",
-              "description": "File format to retrieve the results in",
+              "description": "Format of the portfolio data",
               "required": true,
               "schema": {
                 "type": "string",
@@ -76,7 +76,7 @@
             {
               "name": "data_format",
               "in": "path",
-              "description": "File format to retrieve the results in",
+              "description": "Format of the portfolio data",
               "required": true,
               "schema": {
                 "type": "string",
@@ -121,12 +121,12 @@
     },
     "/submit_margin_job/montecarlo/{data_format}": {
         "post": {
-          "description": "Submits a Value at Risk job",
+          "description": "Submits a Margin Calculation job",
           "parameters": [
               {
                 "name": "data_format",
                 "in": "path",
-                "description": "File format to retrieve the results in",
+                "description": "Format of the portfolio data",
                 "required": true,
                 "schema": {
                   "type": "string",
@@ -151,7 +151,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/Job"
+                    "$ref": "#/components/schemas/MarginJob"
                   }
                 }
               }
@@ -171,12 +171,12 @@
       },
       "/submit_margin_job/historical/{data_format}": {
           "post": {
-            "description": "Submits a Value at Risk job",
+            "description": "Submits a Margin Calculation job",
             "parameters": [
               {
                 "name": "data_format",
                 "in": "path",
-                "description": "File format to retrieve the results in",
+                "description": "Format of the portfolio data",
                 "required": true,
                 "schema": {
                   "type": "string",
@@ -201,7 +201,7 @@
                 "content": {
                   "application/json": {
                     "schema": {
-                      "$ref": "#/components/schemas/Job"
+                      "$ref": "#/components/schemas/MarginJob"
                     }
                   }
                 }
@@ -221,12 +221,12 @@
       },
     "/get_correlations/historical/{data_format}": {
         "get": {
-          "description": "Submits a Value at Risk job",
+          "description": "Calculates position-based correlation matrix",
           "parameters": [
             {
               "name": "data_format",
               "in": "path",
-              "description": "File format to retrieve the results in",
+              "description": "Format of the portfolio data",
               "required": true,
               "schema": {
                 "type": "string",
@@ -251,7 +251,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/Job"
+                    "$ref": "#/components/schemas/CorrJob"
                   }
                 }
               }
@@ -271,12 +271,12 @@
     },
     "/get_correlations/montecarlo/{data_format}": {
         "get": {
-          "description": "Submits a Value at Risk job",
+          "description": "Calculates position-based correlation matrix",
           "parameters": [
             {
               "name": "data_format",
               "in": "path",
-              "description": "File format to retrieve the results in",
+              "description": "Format of the portfolio data",
               "required": true,
               "schema": {
                 "type": "string",
@@ -301,7 +301,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/Job"
+                    "$ref": "#/components/schemas/CorrJob"
                   }
                 }
               }
@@ -321,7 +321,7 @@
     },
     "/get_job/{job_id}/{data_type}/{data_format}": {
       "get": {
-        "description": "Returns the results of a job or its status based on the ID supplied",
+        "description": "Returns the results of a job or its status",
         "parameters": [
           {
             "name": "job_id",
@@ -407,7 +407,7 @@
         ],
         "responses": {
           "204": {
-            "description": "Plant deleted",
+            "description": "Job Stopped",
             "content": {}
           },
           "400": {
@@ -466,7 +466,7 @@
             "format": "float"
           },
           "settings": {
-            "description": "The settings of the simulation",
+            "description": "The Historical settings of the simulation",
             "type": "object",
             "properties": {
               "startDate": {
@@ -553,7 +553,7 @@
             "format": "float"
           },
           "settings": {
-            "description": "The settings of the simulation",
+            "description": "The Monte-Carlo settings of the simulation",
             "type": "object",
             "properties": {
               "distributionAssumption": {
@@ -623,7 +623,7 @@
                 "format": "float"
               },
           "settings": {
-            "description": "The settings of the simulation",
+            "description": "The Historical settings of the simulation",
             "type": "object",
             "properties": {
               "startDate": {
@@ -701,7 +701,7 @@
                 "format": "float"
               },
           "settings": {
-            "description": "The settings of the simulation",
+            "description": "The Monte-Carlo settings of the simulation",
             "type": "object",
             "properties": {
                 "distributionAssumption": {
@@ -747,7 +747,7 @@
                 }
             },
             "settings": {
-                "description": "The settings of the simulation",
+                "description": "The Historical settings of the calculation",
                 "type": "object",
                 "properties": {
                     "startDate": {
@@ -810,7 +810,7 @@
                 }
             },
             "settings": {
-                "description": "The settings of the simulation",
+                "description": "The Monte-Carlo settings of the calculation",
                 "type": "object",
                 "properties": {
                     "distributionAssumption": {
@@ -956,6 +956,40 @@
         "properties": {
           "job_id": {
             "description": "The ID of the successfully submitted job",
+            "type": "string"
+          },
+          "status": {
+            "description": "The status of the job submission request",
+            "type": "string"
+          }
+        }
+      },
+      "MarginJob": {
+        "required": [
+          "results",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "results": {
+            "description": "The margin calculation results in .csv format",
+            "type": "string"
+          },
+          "status": {
+            "description": "The status of the job submission request",
+            "type": "string"
+          }
+        }
+      },
+      "CorrJob": {
+        "required": [
+          "results",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "results": {
+            "description": "The raw correlation matrix values in .csv format",
             "type": "string"
           },
           "status": {
