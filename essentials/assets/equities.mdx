@@ -1,20 +1,20 @@
 ---
-title: Stocks
+title: Equities
 description: ''
 icon: 'chart-line'
 ---
 
-When using the Plutus API, you can include stock assets in your portfolio submission. Each stock position allows for the following customizable properties:
+When using the Plutus API, you can include equities in your portfolio submission. Each equity position allows for the following customizable properties:
 
 ## Properties
 
-- **Ticker**: The unique identifier of the stock (e.g., `"AAPL"` for Apple Inc).
+- **Ticker**: The unique identifier of the equity position (e.g., `"AAPL"` for Apple Inc).
 - **Is_Long**: Specifies whether the position is `"long"` or `"short"`.
 - **Quantity**: The number of shares held.
 
 <CodeGroup>
 ```json JSOM/YAML
-"stocks": [
+"equities": [
     {
         "ticker": "SPY",
         "is_long": true,
@@ -28,24 +28,24 @@ When using the Plutus API, you can include stock assets in your portfolio submis
 ]
 ```
 ```json FPML/XML
-<stocks>
-    <stock>
+<equities>
+    <equity>
         <ticker>SPY</ticker>
         <is_long>true</is_long>
         <quantity>1000</quantity>
-    </stock>
-    <stock>
+    </equity>
+    <equity>
         <ticker>QQQ</ticker>
         <is_long>true</is_long>
         <quantity>500</quantity>
-    </stock>
-</stocks>
+    </equity>
+</equities>
 ```
 </CodeGroup>
 
-## Modeling Different Types of Stocks
+## Modeling Different Types of Equities
 
-The Plutus API can model a wide range of stocks, including those from different exchanges, sectors, and geographies. Here are some of the types of stocks you can model in your portfolio:
+The Plutus API can model a wide range of equities, including those from different exchanges, sectors, and geographies. Here are some of the types of equities you can model in your portfolio:
 
 ### 1. **Domestic Stocks**
 These are stocks listed on exchanges within your home country. For example, stocks traded on the **New York Stock Exchange (NYSE)** or **NASDAQ** are considered domestic stocks if you're in the United States. These stocks can be categorized by market capitalization (e.g., large-cap, mid-cap, small-cap), sector (e.g., technology, healthcare), or investment style (e.g., growth, value).

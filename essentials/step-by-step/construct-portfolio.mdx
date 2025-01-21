@@ -26,9 +26,9 @@ Plutus supports both of these widely used formats, giving you flexibility in how
 <CodeGroup>
 ```json JSON/YAML
 "portfolio": {
+    "equities": [ /* Equity positions here */ ],
+    "options": [ /* Option positions here */ ],
     "futures": [ /* Future positions here */ ],
-    "stocks": [ /* Stock positions here */ ],
-    "options": [ /* Option positions here */ ]
     "bonds": [ /* Bond positions here */ ]
 }
 ```
@@ -36,9 +36,9 @@ Plutus supports both of these widely used formats, giving you flexibility in how
 ```json FPML/XML
 "portfolio": {
     <portfolio>
-        <stocks>
-            /* Stock positions here */
-        </stocks>
+        <equities>
+            /* Equity positions here */
+        </equities>
         <options>
             /* Option positions here */
         </options>

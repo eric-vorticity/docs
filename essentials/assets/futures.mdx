@@ -10,7 +10,7 @@ When using the Plutus API, you can include futures in your portfolio submission.
 
 - **Ticker**: The unique identifier for the futures contract (e.g., `"ESH25"` for the S&P 500 E-mini futures).
 - **Is_Long**: Specifies whether the position is `"Long"` or `"Short"`.
-- **Size**: The size of each futures contract.
+- **Size**: The size of each futures contract (pulled from data source).
 - **Quantity**: The number of futures contracts held.
 
 <CodeGroup>
@@ -49,5 +49,5 @@ Futures contracts can be based on a wide range of underlying assets, including c
 ### Currency Futures
 - **Example**: Currency futures (e.g. `"6EH25"` for Euros or `"6BH25"` for British Pounds) allow you to trade currency pairs, such as the Euro/USD or GBP/USD.
 
-### Stock Index Futures
-- **Example**: Stock index futures (e.g. `"NQH25"` for Nasdaq or `"YMH25"` for Dow Jones) allow investors to speculate on the movement of the overall stock market or hedge against potential market downturns.
+### Index Futures
+- **Example**: Index futures (e.g. `"NQH25"` for Nasdaq or `"YMH25"` for Dow Jones) allow investors to speculate on the movement of the overall market or hedge against potential market downturns.

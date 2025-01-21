@@ -35,41 +35,50 @@ https://5uftseufe1.execute-api.us-east-2.amazonaws.com/prod/submit_job/monte-car
         "distributionAssumption": "Log-Normal",
     },
     "portfolio": {
-        "futures": [
-            {
-                "ticker": "ESH25",
-                "is_long": "long",
-                "size": 50,
-                "quantity": 100
-            },
-            {
-                "ticker": "YMH25",
-                "is_long": "long",
-                "maturity": "2024-12-01",
-                "quantity": 500
-            }
-        ],
-        "stocks": [
+        "equities": [
             {
                 "ticker": "SPY",
-                "is_long": "long",
+                "is_long": true,
                 "quantity": 1000
             },
             {
                 "ticker": "QQQ",
-                "is_long": "long",
+                "is_long": true,
                 "quantity": 500
             }
         ],
         "options": [
             {
                 "ticker": "SPY",
-                "is_long": "Long",
-                "style": "american",
-                "is_call": "Call",
+                "is_long": true,
+                "style": "American",
+                "is_call": true,
                 "strike": 568,
                 "maturity": "2025-10-31",
                 "quantity": 2000
+            }
+        ],
+        "futures": [
+            {
+                "ticker": "ESH25",
+                "is_long": true,
+                "size": 50,
+                "quantity": 100
+            },
+            {
+                "ticker": "YMH25",
+                "is_long": true,
+                "size": 5,
+                "quantity": 500
+            }
+        ],
+        "bonds": [
+            {
+                "face_value": 10000,
+                "interest_rate": 0.03,
+                "issuance_date": "2023/01/01",
+                "maturity": "2024/01/01",
+                "quantity": 100
             }
         ]
     }
@@ -92,18 +101,18 @@ https://5uftseufe1.execute-api.us-east-2.amazonaws.com/prod/submit_job/monte-car
     },
     "portfolio": {
         <portfolio>
-            <stocks>
-                <stock>
+            <equities>
+                <equity>
                     <ticker>SPY</ticker>
                     <is_long>true</is_long>
                     <quantity>1000</quantity>
-                </stock>
-                <stock>
+                </equity>
+                <equity>
                     <ticker>QQQ</ticker>
                     <is_long>true</is_long>
                     <quantity>500</quantity>
-                </stock>
-            </stocks>
+                </equity>
+            </equities>
             <options>
                 <option>
                     <ticker>SPY</ticker>

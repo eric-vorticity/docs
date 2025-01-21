@@ -60,7 +60,7 @@
     {
         "group": "Asset Types",
         "pages": [
-          "essentials/assets/stocks",
+          "essentials/assets/equities",
           "essentials/assets/futures",
           "essentials/assets/options",
           "essentials/assets/bonds",
