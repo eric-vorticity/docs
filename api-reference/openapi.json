@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "Plutus:VaR REST API",
-    "description": "A REST API for interacting with Plutus:VaR engine.",
+    "title": "Plutus REST API",
+    "description": "A REST API for interacting with Plutus engine.",
     "license": {
       "name": "MIT"
     },
