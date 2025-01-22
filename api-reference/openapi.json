@@ -243,9 +243,9 @@
         }
       }
     },
-    "/get_correlations/historical/{data_format}": {
+    "/get_correlations/{data_format}": {
       "get": {
-        "description": "Calculates position-based correlation matrix",
+        "description": "Calculates portfolio-level, position-based correlation matrix",
         "parameters": [
           {
             "name": "data_format",
@@ -263,58 +263,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Corr-Submit-HS"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "server response",
-            "content": {
-              "text/csv": {
-                "schema": {
-                  "type": "string",
-                  "format": "binary"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/get_correlations/montecarlo/{data_format}": {
-      "get": {
-        "description": "Calculates position-based correlation matrix",
-        "parameters": [
-          {
-            "name": "data_format",
-            "in": "path",
-            "description": "Format of the portfolio data",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "enum": ["fpml", "csv", "json", "xml", "yaml"]
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "Job to submit to the server",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Corr-Submit-MC"
+                "$ref": "#/components/schemas/Corr-Submit"
               }
             }
           },
@@ -615,76 +564,72 @@
         ],
         "type": "object",
         "properties": {
+            "marginDate": {
+              "description": "The current date to run the margin calculation for",
+              "type": "string"
+            },
             "numScenarios": {
-                "description": "The number of simulated scenarios to run",
-                "type": "integer",
-                "format": "int32"
-              },
-              "timeHorizonDays": {
-                "description": "The number of days forward to simulate in each scenario",
-                "type": "integer",
-                "format": "int32"
-              },
-              "confidenceLevels": {
-                "description": "The confidence levels",
-                "type": "array",
-                "items": {
-                  "type": "number",
-                  "format": "float"
-                }
-              },
-              "volatilityLookbackDays": {
-                "description": "The number of lookback days to use for volatility calibration",
-                "type": "number",
-                "format": "integer"
-              },
-              "ewmaDecayFactor": {
-                "description": "The lambda decay factor for computing the exponentially weighted moving average",
-                "type": "number",
-                "format": "float"
-              },
-              "volatilityMultiplier": {
-                "description": "The multiplier factor to apply to the calibrated volatilities",
-                "type": "number",
-                "format": "float"
-              },
-          "settings": {
-            "description": "The Historical settings of the simulation",
-            "type": "object",
-            "properties": {
-              "startDate": {
-                "description": "The start date of the historical period to sample from",
-                "type": "string"
-              },
-              "endDate": {
-                "description": "The end date of the historical period to sample from",
-                "type": "string"
-              },
-              "addedDates": {
-                "description": "List of single dates to add to the historical period",
-                "type": "array",
-                "items": {
+              "description": "The number of simulated scenarios to run",
+              "type": "integer",
+              "format": "int32"
+            },
+            "timeHorizonDays": {
+              "description": "The number of days forward to simulate in each scenario",
+              "type": "integer",
+              "format": "int32"
+            },
+            "volatilityLookbackDays": {
+              "description": "The number of lookback days to use for volatility calibration",
+              "type": "number",
+              "format": "integer"
+            },
+            "ewmaDecayFactor": {
+              "description": "The lambda decay factor for computing the exponentially weighted moving average",
+              "type": "number",
+              "format": "float"
+            },
+            "volatilityMultiplier": {
+              "description": "The multiplier factor to apply to the calibrated volatilities",
+              "type": "number",
+              "format": "float"
+            },
+            "settings": {
+              "description": "The Historical settings of the simulation",
+              "type": "object",
+              "properties": {
+                "startDate": {
+                  "description": "The start date of the historical period to sample from",
                   "type": "string"
-                }
-              },
-              "excludedDates": {
-                "description": "List of single dates to exclude from the historical period",
-                "type": "array",
-                "items": {
+                },
+                "endDate": {
+                  "description": "The end date of the historical period to sample from",
                   "type": "string"
+                },
+                "addedDates": {
+                  "description": "List of single dates to add to the historical period",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "excludedDates": {
+                  "description": "List of single dates to exclude from the historical period",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "portfolio": {
+              "description": "Your portfolio of positions",
+              "type": "object",
+              "properties": {
+                "futures": {
+                  "$ref": "#/components/schemas/FuturePositions"
                 }
               }
             }
-          },
-          "portfolio": {
-            "description": "Your portfolio of positions",
-            "type": "object",
-            "properties": {
-              "futures": {
-                "$ref": "#/components/schemas/FuturePositions"
-              }
-            }
-          }
         }
       },
       "MC-Submit-Margin": {
@@ -693,157 +638,95 @@
         ],
         "type": "object",
         "properties": {
+            "marginDate": {
+              "description": "The current date to run the margin calculation for",
+              "type": "string"
+            },
             "numScenarios": {
-                "description": "The number of simulated scenarios to run",
-                "type": "integer",
-                "format": "int32"
-              },
-              "timeHorizonDays": {
-                "description": "The number of days forward to simulate in each scenario",
-                "type": "integer",
-                "format": "int32"
-              },
-              "confidenceLevels": {
-                "description": "The confidence levels",
-                "type": "array",
-                "items": {
-                  "type": "number",
-                  "format": "float"
-                }
-              },
-              "volatilityLookbackDays": {
-                "description": "The number of lookback days to use for volatility calibration",
-                "type": "number",
-                "format": "integer"
-              },
-              "ewmaDecayFactor": {
-                "description": "The lambda decay factor for computing the exponentially weighted moving average",
-                "type": "number",
-                "format": "float"
-              },
-              "volatilityMultiplier": {
-                "description": "The multiplier factor to apply to the calibrated volatilities",
-                "type": "number",
-                "format": "float"
-              },
-          "settings": {
-            "description": "The Monte-Carlo settings of the simulation",
-            "type": "object",
-            "properties": {
+              "description": "The number of simulated scenarios to run",
+              "type": "integer",
+              "format": "int32"
+            },
+            "timeHorizonDays": {
+              "description": "The number of days forward to simulate in each scenario",
+              "type": "integer",
+              "format": "int32"
+            },
+            "volatilityLookbackDays": {
+              "description": "The number of lookback days to use for volatility calibration",
+              "type": "number",
+              "format": "integer"
+            },
+            "ewmaDecayFactor": {
+              "description": "The lambda decay factor for computing the exponentially weighted moving average",
+              "type": "number",
+              "format": "float"
+            },
+            "volatilityMultiplier": {
+              "description": "The multiplier factor to apply to the calibrated volatilities",
+              "type": "number",
+              "format": "float"
+            },
+            "settings": {
+              "description": "The Monte-Carlo settings of the simulation",
+              "type": "object",
+              "properties": {
                 "distributionAssumption": {
                     "description": "The assumed distribution of underlying price movements",
                     "type": "string",
                     "enum": ["Normal", "Log-Normal", "Student"]
                 }
-            }
-          },
-          "portfolio": {
-            "description": "Your portfolio of positions",
-            "type": "object",
-            "properties": {
-              "futures": {
-                "$ref": "#/components/schemas/FuturePositions"
               }
-            }
-          }
-        }
-      },
-      "Corr-Submit-HS": {
-        "required": [
-          "name"
-        ],
-        "type": "object",
-        "properties": {
-            "numScenarios": {
-                "description": "The number of simulated scenarios to run",
-                "type": "integer",
-                "format": "int32"
-              },
-              "timeHorizonDays": {
-                "description": "The number of days forward to simulate in each scenario",
-                "type": "integer",
-                "format": "int32"
-              },
-              "confidenceLevels": {
-                "description": "The confidence levels",
-                "type": "array",
-                "items": {
-                    "type": "number",
-                    "format": "float"
-                }
-            },
-            "settings": {
-                "description": "The Historical settings of the calculation",
-                "type": "object",
-                "properties": {
-                    "startDate": {
-                        "description": "The start date of the historical period to sample from",
-                        "type": "string"
-                    },
-                    "endDate": {
-                        "description": "The end date of the historical period to sample from",
-                        "type": "string"
-                    },
-                    "addedDates": {
-                        "description": "List of single dates to add to the historical period",
-                        "type": "array",
-                        "items": {
-                        "type": "string"
-                        }
-                    },
-                    "excludedDates": {
-                        "description": "List of single dates to exclude from the historical period",
-                        "type": "array",
-                        "items": {
-                        "type": "string"
-                        }
-                    }
-                }
             },
             "portfolio": {
-                "description": "Your portfolio of positions",
-                "type": "object",
-                "properties": {
-                    "futures": {
-                        "$ref": "#/components/schemas/FuturePositions"
-                    }
+              "description": "Your portfolio of positions",
+              "type": "object",
+              "properties": {
+                "futures": {
+                  "$ref": "#/components/schemas/FuturePositions"
                 }
+              }
             }
         }
       },
-      "Corr-Submit-MC": {
+      "Corr-Submit": {
         "required": [
           "name"
         ],
         "type": "object",
         "properties": {
             "numScenarios": {
-                "description": "The number of simulated scenarios to run",
-                "type": "integer",
-                "format": "int32"
-              },
-              "timeHorizonDays": {
-                "description": "The number of days forward to simulate in each scenario",
-                "type": "integer",
-                "format": "int32"
-              },
-              "confidenceLevels": {
-                "description": "The confidence levels",
-                "type": "array",
-                "items": {
-                    "type": "number",
-                    "format": "float"
-                }
+              "description": "The number of simulated scenarios to run",
+              "type": "integer",
+              "format": "int32"
             },
-            "settings": {
-                "description": "The Monte-Carlo settings of the calculation",
-                "type": "object",
-                "properties": {
-                    "distributionAssumption": {
-                        "description": "The assumed underlying distribution of asset returns",
-                        "type": "string"
-                    }
-                }
+            "timeHorizonDays": {
+              "description": "The number of days forward to simulate in each scenario",
+              "type": "integer",
+              "format": "int32"
+            },
+            "confidenceLevels": {
+              "description": "The confidence levels",
+              "type": "array",
+              "items": {
+                  "type": "number",
+                  "format": "float"
+              }
+            },
+            "volatilityLookbackDays": {
+              "description": "The number of lookback days to use for volatility calibration",
+              "type": "number",
+              "format": "integer"
+            },
+            "ewmaDecayFactor": {
+              "description": "The lambda decay factor for computing the exponentially weighted moving average",
+              "type": "number",
+              "format": "float"
+            },
+            "volatilityMultiplier": {
+              "description": "The multiplier factor to apply to the calibrated volatilities",
+              "type": "number",
+              "format": "float"
             },
             "portfolio": {
                 "description": "Your portfolio of positions",

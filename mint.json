@@ -83,8 +83,7 @@
         "pages": [
             "api-reference/margin_endpoints/submit_margin_mc",
             "api-reference/margin_endpoints/submit_margin_hs",
-            "api-reference/margin_endpoints/get_corr_mc",
-            "api-reference/margin_endpoints/get_corr_hs"
+            "api-reference/margin_endpoints/get_corr"
         ]
     },
     {
