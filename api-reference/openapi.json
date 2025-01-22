@@ -19,7 +19,7 @@
     }
   ],
   "paths": {
-    "/submit_var_job/montecarlo/{data_format}": {
+    "/var/submit_job/montecarlo/{data_format}": {
       "post": {
         "description": "Submits a Value at Risk job",
         "parameters": [
@@ -69,7 +69,7 @@
         }
       }
     },
-    "/submit_var_job/historical/{data_format}": {
+    "/var/submit_job/historical/{data_format}": {
       "post": {
         "description": "Submits a Value at Risk job",
         "parameters": [
@@ -119,7 +119,7 @@
         }
       }
     },
-    "/submit_margin_job/montecarlo/{data_format}": {
+    "/margin/submit_job/montecarlo/{data_format}": {
       "post": {
         "description": "Submits a Margin Calculation job",
         "parameters": [
@@ -181,7 +181,7 @@
         }
       }
     },
-    "/submit_margin_job/historical/{data_format}": {
+    "/margin/submit_job/historical/{data_format}": {
       "post": {
         "description": "Submits a Margin Calculation job",
         "parameters": [
@@ -243,7 +243,7 @@
         }
       }
     },
-    "/get_correlations/{data_format}": {
+    "/margin/get_correlations/{data_format}": {
       "get": {
         "description": "Calculates portfolio-level, position-based correlation matrix",
         "parameters": [
@@ -294,7 +294,7 @@
         }
       }
     },
-    "/get_job/{job_id}/{data_type}/{data_format}": {
+    "/var/get_job/{job_id}/{data_type}/{data_format}": {
       "get": {
         "description": "Returns the results of a job or its status",
         "parameters": [
@@ -365,7 +365,7 @@
         }
       }
     },
-    "/stop_job/{job_id}": {
+    "/var/stop_job/{job_id}": {
       "post": {
         "description": "Stops a single job based on the ID supplied",
         "parameters": [
